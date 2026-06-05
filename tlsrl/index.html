@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TLSRL — The LoL–Spawn Railway Link · Route Documentation</title>
+<meta name="description" content="Full route documentation for TLSRL — The LoL to Spawn Railway Link. Measured coordinates, segment analysis, station profiles, infrastructure data.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#111318;--bg2:#161920;--bg3:#1c2029;--bgc:#1a1e27;
+  --bdr:rgba(255,255,255,0.07);--bdr2:rgba(255,255,255,0.14);
+  --txt:#e8eaf0;--muted:rgba(232,234,240,0.45);--faint:rgba(232,234,240,0.22);
+  --grn:#34a06a;--grn-dk:#1d4a33;--grn-lt:#5cba8a;--grn-dim:rgba(52,160,106,.12);
+  --gold:#c9a84c;
+  --tb:30px;--nh:60px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--tb);z-index:500;background:#0d0f14;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;padding:0 5%;overflow-x:auto;scrollbar-width:none}
+.topbar::-webkit-scrollbar{display:none}
+.topbar-links{display:flex;align-items:center;white-space:nowrap;flex-shrink:0}
+.topbar-links a{font-family:'IBM Plex Mono',monospace;font-size:0.47rem;letter-spacing:1.8px;color:rgba(232,234,240,0.28);text-decoration:none;padding:0 12px;height:var(--tb);display:flex;align-items:center;transition:color 0.2s,background 0.2s;border-right:1px solid rgba(255,255,255,0.04)}
+.topbar-links a:first-child{border-left:1px solid rgba(255,255,255,0.04)}
+.topbar-links a:hover{color:rgba(232,234,240,0.65)}
+.topbar-links a.here{color:var(--grn);background:var(--grn-dim)}
+
+/* NAV */
+nav{position:sticky;top:var(--tb);z-index:400;height:var(--nh);display:flex;align-items:center;padding:0 5%;background:rgba(17,19,24,0.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr);gap:32px}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;flex-shrink:0}
+.nav-mark{width:36px;height:36px;background:var(--grn);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:0.56rem;font-weight:600;color:#fff;letter-spacing:0;transition:box-shadow 0.3s}
+.nav-brand:hover .nav-mark{box-shadow:0 0 16px rgba(52,160,106,0.45)}
+.nav-bname{font-family:'DM Serif Display',serif;font-size:1rem;display:block;line-height:1}
+.nav-bsub{font-family:'IBM Plex Mono',monospace;font-size:0.46rem;letter-spacing:2px;color:var(--faint);display:block;margin-top:1px}
+.nav-links{display:flex;gap:2px;flex:1}
+.nav-links a{padding:5px 12px;font-family:'IBM Plex Mono',monospace;font-size:0.56rem;letter-spacing:1.5px;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.on{color:var(--grn)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.spill{display:flex;align-items:center;gap:6px;padding:4px 12px;border:1px solid rgba(52,160,106,0.25);font-family:'IBM Plex Mono',monospace;font-size:0.5rem;letter-spacing:1.5px;color:var(--grn)}
+.spill-dot{width:5px;height:5px;border-radius:50%;background:var(--grn);animation:blink 2s infinite}
+.nav-back{padding:5px 14px;font-family:'IBM Plex Mono',monospace;font-size:0.54rem;letter-spacing:1.5px;color:var(--faint);text-decoration:none;border:1px solid var(--bdr);transition:all 0.2s}
+.nav-back:hover{color:var(--txt);border-color:var(--bdr2)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;margin-left:auto}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--muted);transition:all .25s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.drawer{display:none;position:fixed;top:calc(var(--tb) + var(--nh));left:0;right:0;background:rgba(13,15,20,.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);z-index:390;padding:1.5rem 5%;flex-direction:column}
+.drawer.open{display:flex}
+.drawer a{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:2px;color:var(--muted);text-decoration:none;padding:.85rem 0;border-bottom:1px solid var(--bdr);transition:color .2s}
+.drawer a:hover{color:var(--grn)}
+.drawer a:last-child{border:none}
+
+/* HERO */
+.hero{margin-top:var(--tb);padding:80px 5% 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-60deg,transparent,transparent 48px,rgba(255,255,255,.013) 48px,rgba(255,255,255,.013) 49px)}
+.hero-glow{position:absolute;top:-10%;left:-5%;width:55vw;height:55vw;background:radial-gradient(circle,rgba(52,160,106,.1) 0%,transparent 65%);pointer-events:none}
+.hero-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--grn)}
+.hero-inner{max-width:1200px;margin:0 auto;position:relative}
+.hero-eye{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:3px;color:var(--grn);margin-bottom:1.4rem;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp .7s ease .1s forwards}
+.hero-eye::before{content:'';width:24px;height:1px;background:var(--grn);opacity:.6}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,5vw,5rem);line-height:1;letter-spacing:-1.5px;color:var(--txt);margin-bottom:1rem;opacity:0;animation:fadeUp .7s ease .2s forwards}
+.hero h1 em{font-style:italic;color:var(--grn)}
+.hero-sub{font-size:.97rem;color:var(--muted);font-weight:300;max-width:520px;line-height:1.85;margin-bottom:2.5rem;opacity:0;animation:fadeUp .7s ease .3s forwards}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;opacity:0;animation:fadeUp .7s ease .4s forwards}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:1.5px;padding:5px 12px;border:1px solid;display:flex;align-items:center;gap:6px}
+.chip-grn{border-color:rgba(52,160,106,.3);color:var(--grn);background:var(--grn-dim)}
+.chip-dim{border-color:var(--bdr);color:var(--faint)}
+.chip-gold{border-color:rgba(201,168,76,.3);color:var(--gold);background:rgba(201,168,76,.06)}
+
+/* STATS STRIP */
+.stats{background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
+.stats-inner{max-width:1200px;margin:0 auto;display:flex}
+.stat{flex:1;padding:2rem 2rem;border-right:1px solid var(--bdr);transition:background .2s}
+.stat:last-child{border-right:none}
+.stat:hover{background:var(--grn-dim)}
+.sv{font-family:'DM Serif Display',serif;font-size:2.3rem;color:var(--txt);display:block;line-height:1;margin-bottom:.3rem}
+.sv em{font-style:italic;color:var(--grn)}
+.sk{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:2px;color:var(--faint)}
+
+/* SECTIONS */
+.sec{padding:5rem 5%}
+.sec-alt{background:var(--bg2);border-top:1px solid var(--bdr)}
+.inner{max-width:1200px;margin:0 auto}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;padding-bottom:1.2rem;border-bottom:1px solid var(--bdr);flex-wrap:wrap;gap:12px}
+.eye{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:3px;color:var(--grn);margin-bottom:.5rem}
+.sec-head h2{font-family:'DM Serif Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);color:var(--txt)}
+.sec-head h2 em{font-style:italic;color:var(--grn)}
+.sec-meta{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:1.5px;color:var(--faint);text-align:right;line-height:2}
+
+/* ROUTE MAP */
+.map-card{background:var(--bgc);border:1px solid var(--bdr);padding:1.8rem;transition:border-color .3s}
+.map-card:hover{border-color:rgba(52,160,106,.2)}
+.map-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap;gap:10px}
+.map-title{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:2.5px;color:var(--faint)}
+.map-legend{display:flex;gap:16px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:1px;color:var(--faint)}
+.leg-line{width:18px;height:3px;border-radius:1px}
+.leg-dash{width:18px;height:0;border-top:2px dashed}
+.route-svg{width:100%;height:auto;display:block}
+
+/* PHASE CARDS */
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bdr)}
+.phase{background:var(--bgc);padding:2rem 1.8rem;position:relative;overflow:hidden;border-top:3px solid}
+.phase-1{border-color:var(--grn)}
+.phase-2{border-color:#5b9cf6}
+.phase-3{border-color:rgba(201,168,76,.6)}
+.phase-bg{position:absolute;right:-10px;bottom:-20px;font-family:'DM Serif Display',serif;font-size:7rem;font-weight:900;opacity:.035;line-height:1;pointer-events:none}
+.phase-id{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:2px;color:var(--faint);margin-bottom:.8rem}
+.phase h3{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--txt);margin-bottom:.4rem;line-height:1.2}
+.phase p{font-size:.85rem;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:1rem}
+.phase-stat{display:flex;gap:20px;padding-top:1rem;border-top:1px solid var(--bdr)}
+.ps-val{font-family:'DM Serif Display',serif;font-size:1.3rem;display:block;line-height:1}
+.phase-1 .ps-val{color:var(--grn)}
+.phase-2 .ps-val{color:#5b9cf6}
+.phase-3 .ps-val{color:var(--gold)}
+.ps-key{font-family:'IBM Plex Mono',monospace;font-size:.44rem;letter-spacing:1.5px;color:var(--faint);display:block}
+.phase-note{font-family:'IBM Plex Mono',monospace;font-size:.44rem;letter-spacing:1px;color:var(--faint);margin-top:.8rem;line-height:1.6;border-left:2px solid;padding-left:.8rem}
+.phase-1 .phase-note{border-color:rgba(52,160,106,.3)}
+.phase-2 .phase-note{border-color:rgba(91,156,246,.3)}
+.phase-3 .phase-note{border-color:rgba(201,168,76,.3)}
+
+/* SEGMENT TABLE */
+.seg-table{width:100%;border-collapse:collapse;font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.5px}
+.seg-table th{padding:.7rem 1rem;text-align:left;font-size:.46rem;letter-spacing:2px;color:var(--faint);border-bottom:1px solid var(--bdr);font-weight:400;background:var(--bg2)}
+.seg-table td{padding:.65rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--muted);transition:background .15s}
+.seg-table tr:hover td{background:rgba(255,255,255,.025)}
+.seg-table .seg-num{color:var(--faint);font-size:.5rem}
+.seg-table .coord{color:rgba(232,234,240,.35);font-size:.52rem}
+.seg-table .dir-w{color:#5b9cf6}
+.seg-table .dir-s{color:var(--grn)}
+.seg-table .dir-n{color:#f6a035}
+.seg-table .dist-big{color:var(--grn);font-weight:600}
+.seg-table .dist-micro{color:var(--faint)}
+.seg-table .dist-mid{color:var(--txt)}
+.seg-table .note-badge{font-size:.44rem;letter-spacing:1.5px;padding:1px 7px;border:1px solid;display:inline-block}
+.badge-station{border-color:rgba(52,160,106,.4);color:var(--grn);background:var(--grn-dim)}
+.badge-long{border-color:rgba(91,156,246,.3);color:#5b9cf6;background:rgba(91,156,246,.07)}
+.badge-future{border-color:rgba(201,168,76,.3);color:var(--gold);background:rgba(201,168,76,.06)}
+.badge-micro{border-color:var(--bdr);color:var(--faint)}
+.badge-north{border-color:rgba(246,160,53,.3);color:#f6a035;background:rgba(246,160,53,.07)}
+.seg-group-hdr td{background:rgba(255,255,255,.03);font-size:.46rem;letter-spacing:2px;color:var(--faint);padding:.5rem 1rem;border-bottom:1px solid var(--bdr)}
+
+/* STATION CARDS */
+.stations{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bdr)}
+.stn{background:var(--bgc);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .2s;border-top:3px solid var(--grn)}
+.stn:hover{background:var(--bg3)}
+.stn-bg{position:absolute;right:-10px;bottom:-20px;font-family:'DM Serif Display',serif;font-size:6rem;font-weight:900;color:rgba(52,160,106,.06);line-height:1;pointer-events:none}
+.stn-id{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:2.5px;color:var(--faint);margin-bottom:.8rem}
+.stn h3{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--txt);margin-bottom:.5rem;letter-spacing:-.3px}
+.stn h3 em{font-style:italic;color:var(--grn)}
+.stn-coord{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:1.5px;color:var(--grn);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.stn-coord::before{content:'◉';font-size:.6rem}
+.stn p{font-size:.88rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:1.2rem}
+.stn-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr);margin-top:1rem}
+.stn-fact{background:var(--bg2);padding:.8rem 1rem}
+.sf-k{font-family:'IBM Plex Mono',monospace;font-size:.44rem;letter-spacing:1.5px;color:var(--faint);display:block;margin-bottom:3px}
+.sf-v{font-size:.88rem;color:var(--txt);font-weight:500}
+
+/* INFRA GRID */
+.infra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bdr)}
+.infra{background:var(--bgc);padding:2rem 1.8rem;position:relative;transition:background .2s}
+.infra:hover{background:var(--bg3);box-shadow:inset 0 0 40px rgba(52,160,106,.04)}
+.infra-icon{font-size:1.5rem;margin-bottom:1rem;display:block}
+.infra h4{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--txt);margin-bottom:.4rem}
+.infra p{font-size:.86rem;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:.8rem}
+.infra-count{font-family:'DM Serif Display',serif;font-size:2.4rem;color:var(--grn);display:block;line-height:1}
+.infra-count em{font-style:italic}
+.infra-label{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:2px;color:var(--faint)}
+
+/* INSIGHTS */
+.insights{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bdr);margin-top:3rem}
+.insight{background:var(--bgc);padding:1.5rem 1.8rem;display:flex;gap:16px;align-items:flex-start;transition:background .2s}
+.insight:hover{background:var(--bg3)}
+.ins-num{font-family:'DM Serif Display',serif;font-size:1.5rem;font-weight:900;color:rgba(52,160,106,.25);flex-shrink:0;line-height:1;padding-top:2px}
+.ins-body h5{font-size:.9rem;font-weight:600;color:var(--txt);margin-bottom:4px}
+.ins-body p{font-size:.83rem;color:var(--muted);line-height:1.7;font-weight:300}
+.ins-body strong{color:var(--grn);font-weight:600}
+
+/* FOOTER */
+footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
+.ft-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:50px;margin-bottom:2rem}
+.ft-name{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--txt);margin-bottom:.3rem}
+.ft-name em{font-style:italic;color:var(--grn)}
+.ft-sub{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:2px;color:var(--faint);margin-bottom:1rem}
+.ft-desc{font-size:.86rem;color:var(--faint);line-height:1.8;font-weight:300;max-width:280px}
+.ft-col h5{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:2.5px;color:var(--faint);margin-bottom:1rem}
+.ft-col a{display:block;font-size:.86rem;color:rgba(232,234,240,.28);text-decoration:none;margin-bottom:.5rem;font-weight:300;transition:color .2s}
+.ft-col a:hover{color:var(--grn)}
+.ft-bot{border-top:1px solid var(--bdr);padding-top:1.2rem;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.ft-bot p{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:1.5px;color:var(--faint)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .phases{grid-template-columns:1fr}
+  .infra-grid{grid-template-columns:1fr 1fr}
+  .insights{grid-template-columns:1fr}
+  .ft-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+  .stats-inner{flex-direction:column}
+  .stat{border-right:none;border-bottom:1px solid var(--bdr);padding:1.4rem 1.2rem}
+  .stat:last-child{border-bottom:none}
+  .stations{grid-template-columns:1fr}
+  .infra-grid{grid-template-columns:1fr}
+  .nav-links,.spill,.nav-back{display:none}
+  .hamburger{display:flex}
+  .ft-inner{grid-template-columns:1fr;gap:2rem}
+  .ft-bot{flex-direction:column;text-align:center}
+  .insights{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-links">
+    <a href="/paizcorp/">PAIZ® CORP</a>
+    <a href="/main/">THE LOL</a>
+    <a href="/gov/">GOVERNMENT</a>
+    <a href="/isc/">ISC</a>
+    <a href="/tlrailways/">TL RAILWAYS</a>
+    <a href="#" class="here">TLSRL</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="nav-mark">TLR</div>
+    <div>
+      <span class="nav-bname">TLSRL</span>
+      <span class="nav-bsub">ROUTE DOCUMENTATION</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#map">MAP</a>
+    <a href="#segments">SEGMENTS</a>
+    <a href="#stations">STATIONS</a>
+    <a href="#infrastructure">INFRASTRUCTURE</a>
+  </div>
+  <div class="nav-right">
+    <div class="spill"><div class="spill-dot"></div> ROUTE ACTIVE</div>
+    <a href="/tlrailways/" class="nav-back">← TL RAILWAYS</a>
+  </div>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="drawer" id="drawer">
+  <a href="#map" onclick="closeNav()">ROUTE MAP</a>
+  <a href="#segments" onclick="closeNav()">SEGMENTS</a>
+  <a href="#stations" onclick="closeNav()">STATIONS</a>
+  <a href="#infrastructure" onclick="closeNav()">INFRASTRUCTURE</a>
+  <a href="/tlrailways/">← TL RAILWAYS</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bar"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-eye">TLSRL // MEGAPROJECT-01 // TL RAILWAYS FLAGSHIP</div>
+    <h1>The LoL–Spawn<br><em>Railway Link.</em></h1>
+    <p class="hero-sub">
+      Full route documentation — coordinates, measured distances, station profiles, and infrastructure data
+      for the TLSRL, TL Railways' flagship line connecting The Legend of Legiona to Spawn across Skyxion.
+    </p>
+    <div class="hero-chips">
+      <div class="chip chip-grn"><span>●</span> ROUTE ACTIVE</div>
+      <div class="chip chip-grn">3,066 BLOCKS MEASURED</div>
+      <div class="chip chip-dim">2 STATIONS</div>
+      <div class="chip chip-dim">11 BRIDGES</div>
+      <div class="chip chip-dim">2 TUNNELS</div>
+      <div class="chip chip-dim">7 BIOMES</div>
+      <div class="chip chip-gold">BOTH ENDS PLANNED FOR EXTENSION</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat"><span class="sv"><em>3,066</em></span><span class="sk">BLOCKS — START TO VALLEY STATION</span></div>
+    <div class="stat"><span class="sv">3,405+</span><span class="sk">BLOCKS INCL. PLANNED VALLEY EXTENSION</span></div>
+    <div class="stat"><span class="sv">1,892</span><span class="sk">BLOCKS — START TO MALACCA STATION</span></div>
+    <div class="stat"><span class="sv"><em>29</em></span><span class="sk">TOTAL SEGMENTS // 28 DIRECTIONAL TURNS</span></div>
+  </div>
+</div>
+
+<!-- ROUTE MAP -->
+<section class="sec" id="map">
+  <div class="inner reveal">
+    <div class="sec-head">
+      <div>
+        <div class="eye">CARTOGRAPHIC RECORD</div>
+        <h2>Route <em>Map.</em></h2>
+      </div>
+      <div class="sec-meta">MEASURED 2026<br>SKYXION: ALTAËR ERA</div>
+    </div>
+    <div class="map-card">
+      <div class="map-hdr">
+        <div class="map-title">TLSRL — FULL ROUTE SCHEMATIC · PLAN VIEW · NORTH UP</div>
+        <div class="map-legend">
+          <div class="leg"><div class="leg-line" style="background:var(--grn)"></div> BUILT ROUTE</div>
+          <div class="leg"><div class="leg-dash" style="border-color:var(--grn)"></div> PLANNED EXTENSION</div>
+          <div class="leg"><div class="leg-line" style="background:rgba(52,160,106,.2);width:10px;height:10px;border-radius:50%"></div> STATION</div>
+        </div>
+      </div>
+      <!-- SVG ROUTE MAP — ViewBox 0 0 1060 570, padding 30, scaleX=1000/2256, scaleZ=510/1121 -->
+      <svg class="route-svg" viewBox="0 0 1060 570" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr-e" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6 Z" fill="rgba(52,160,106,0.5)"/>
+          </marker>
+          <marker id="arr-w" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto-start-reverse">
+            <path d="M8,0 L0,3 L8,6 Z" fill="rgba(52,160,106,0.5)"/>
+          </marker>
+        </defs>
+
+        <!-- Grid lines -->
+        <line x1="0" y1="150" x2="1060" y2="150" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="0" y1="300" x2="1060" y2="300" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="0" y1="450" x2="1060" y2="450" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="200" y1="0" x2="200" y2="570" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="400" y1="0" x2="400" y2="570" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="600" y1="0" x2="600" y2="570" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="800" y1="0" x2="800" y2="570" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="1000" y1="0" x2="1000" y2="570" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+
+        <!-- Future extensions (dashed) -->
+        <!-- East extension from P1 (1030,30) -->
+        <line x1="1030" y1="30" x2="1060" y2="30" stroke="rgba(52,160,106,0.35)" stroke-width="2.5" stroke-dasharray="6 4"/>
+        <!-- West extension from P30 (30,527) -->
+        <line x1="30" y1="527" x2="0" y2="527" stroke="rgba(52,160,106,0.35)" stroke-width="2.5" stroke-dasharray="6 4"/>
+
+        <!-- Main route — P1 to P30 -->
+        <polyline
+          points="1030,30 948,30 948,43 758,43 758,74 552,74 552,84 542,84 542,89 530,89 530,144 520,144 520,231 483,231 483,233 432,233 432,239 428,239 428,272 428,480 392,480 392,506 328,506 328,540 270,540 270,533 248,533 248,527 180,527 30,527"
+          fill="none" stroke="var(--grn)" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <!-- Turn dots (small) -->
+        <circle cx="948" cy="30" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="948" cy="43" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="758" cy="43" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="758" cy="74" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="552" cy="74" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="552" cy="84" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="542" cy="84" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="542" cy="89" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="530" cy="89" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="530" cy="144" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="520" cy="144" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="520" cy="231" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="483" cy="231" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="432" cy="233" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="428" cy="239" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="428" cy="480" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="392" cy="480" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="392" cy="506" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="328" cy="506" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="328" cy="540" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="270" cy="540" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="270" cy="533" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="248" cy="533" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+        <circle cx="248" cy="527" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
+
+        <!-- START endpoint -->
+        <circle cx="1030" cy="30" r="7" fill="var(--bg)" stroke="var(--grn)" stroke-width="2"/>
+        <text x="1030" y="20" fill="rgba(52,160,106,0.7)" font-family="IBM Plex Mono" font-size="8" text-anchor="middle" letter-spacing="1">START</text>
+        <text x="1030" y="12" fill="rgba(52,160,106,0.45)" font-family="IBM Plex Mono" font-size="6.5" text-anchor="middle">586, 193</text>
+
+        <!-- MALACCA STATION at (428, 272) -->
+        <circle cx="428" cy="272" r="9" fill="var(--grn)" stroke="var(--bg)" stroke-width="2"/>
+        <rect x="356" y="280" width="120" height="32" fill="rgba(26,30,39,0.92)" rx="2"/>
+        <text x="416" y="294" fill="var(--grn)" font-family="IBM Plex Mono" font-size="8.5" font-weight="600" letter-spacing="0.5">MALACCA STN</text>
+        <text x="416" y="305" fill="rgba(232,234,240,0.4)" font-family="IBM Plex Mono" font-size="7">{-773, 726}</text>
+
+        <!-- VALLEY STATION at (180, 527) -->
+        <circle cx="180" cy="527" r="9" fill="var(--grn)" stroke="var(--bg)" stroke-width="2"/>
+        <rect x="80" y="535" width="138" height="30" fill="rgba(26,30,39,0.92)" rx="2"/>
+        <text x="149" y="548" fill="var(--grn)" font-family="IBM Plex Mono" font-size="8" font-weight="600" letter-spacing="0.5">THE LOL VALLEY</text>
+        <text x="149" y="559" fill="rgba(232,234,240,0.4)" font-family="IBM Plex Mono" font-size="7">{-1331, 1286}</text>
+
+        <!-- FUTURE END at (30, 527) -->
+        <circle cx="30" cy="527" r="5" fill="var(--bg)" stroke="rgba(52,160,106,0.4)" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <text x="30" y="517" fill="rgba(52,160,106,0.4)" font-family="IBM Plex Mono" font-size="7" text-anchor="middle">FUTURE</text>
+
+        <!-- Segment labels for longest runs -->
+        <text x="770" y="67" fill="rgba(91,156,246,0.55)" font-family="IBM Plex Mono" font-size="7.5" text-anchor="middle">S5 · 466 blk</text>
+        <text x="770" y="59" fill="rgba(91,156,246,0.35)" font-family="IBM Plex Mono" font-size="6.5" text-anchor="middle">W →</text>
+        <text x="855" y="37" fill="rgba(91,156,246,0.55)" font-family="IBM Plex Mono" font-size="7.5" text-anchor="middle">S3 · 428 blk</text>
+        <text x="437" y="388" fill="rgba(91,156,246,0.55)" font-family="IBM Plex Mono" font-size="7.5">S19 · 456</text>
+        <text x="437" y="397" fill="rgba(91,156,246,0.35)" font-family="IBM Plex Mono" font-size="6.5">↓ S</text>
+
+        <!-- Compass rose -->
+        <g transform="translate(70, 60)">
+          <circle r="18" fill="rgba(26,30,39,0.8)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <line x1="0" y1="-12" x2="0" y2="12" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <line x1="-12" y1="0" x2="12" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <polygon points="0,-12 4,-4 0,0 -4,-4" fill="rgba(52,160,106,0.8)"/>
+          <polygon points="0,0 4,4 0,12 -4,4" fill="rgba(255,255,255,0.2)"/>
+          <text x="0" y="-18" fill="var(--grn)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" font-weight="600">N</text>
+          <text x="18" y="4" fill="rgba(255,255,255,0.25)" font-family="IBM Plex Mono" font-size="8">E</text>
+          <text x="-22" y="4" fill="rgba(255,255,255,0.25)" font-family="IBM Plex Mono" font-size="8">W</text>
+          <text x="0" y="28" fill="rgba(255,255,255,0.25)" font-family="IBM Plex Mono" font-size="8" text-anchor="middle">S</text>
+        </g>
+
+        <!-- Scale bar (approx) -->
+        <g transform="translate(850, 540)">
+          <line x1="0" y1="0" x2="88" y2="0" stroke="rgba(52,160,106,0.5)" stroke-width="1.5"/>
+          <line x1="0" y1="-4" x2="0" y2="4" stroke="rgba(52,160,106,0.5)" stroke-width="1.5"/>
+          <line x1="88" y1="-4" x2="88" y2="4" stroke="rgba(52,160,106,0.5)" stroke-width="1.5"/>
+          <text x="44" y="-8" fill="rgba(232,234,240,0.3)" font-family="IBM Plex Mono" font-size="7" text-anchor="middle">≈ 200 BLOCKS</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE BREAKDOWN -->
+<section class="sec sec-alt" id="phases">
+  <div class="inner reveal">
+    <div class="sec-head">
+      <div>
+        <div class="eye">SECTION BREAKDOWN</div>
+        <h2>Three <em>Phases.</em></h2>
+      </div>
+      <div class="sec-meta">START → MALACCA → VALLEY<br>+ PLANNED EXTENSION</div>
+    </div>
+    <div class="phases">
+      <div class="phase phase-1">
+        <div class="phase-bg">01</div>
+        <div class="phase-id">PHASE 1 // SEGMENTS S1–S18</div>
+        <h3>Eastern Approach to Malacca</h3>
+        <p>18 segments navigating from the eastern starting point through complex terrain — long westward runs interrupted by concentrated terrain-zigzag zones suggesting rivers, ravines, and biome transitions.</p>
+        <div class="phase-stat">
+          <div><span class="ps-val">1,892</span><span class="ps-key">BLOCKS</span></div>
+          <div><span class="ps-val">18</span><span class="ps-key">SEGMENTS</span></div>
+          <div><span class="ps-val">61.7%</span><span class="ps-key">OF ROUTE</span></div>
+        </div>
+        <div class="phase-note">Longest run: S5 = 466 blocks W (Z=290 corridor)<br>Major terrain zone: S6–S18 (concentrated turns)</div>
+      </div>
+      <div class="phase phase-2">
+        <div class="phase-bg">02</div>
+        <div class="phase-id">PHASE 2 // SEGMENTS S19–S28</div>
+        <h3>Malacca to The LoL Valley</h3>
+        <p>10 segments from Malacca Station heading deep south then navigating westward through the valley approach — including two deliberate northward corrections (S25, S27) suggesting a ridge bypass.</p>
+        <div class="phase-stat">
+          <div><span class="ps-val">1,174</span><span class="ps-key">BLOCKS</span></div>
+          <div><span class="ps-val">10</span><span class="ps-key">SEGMENTS</span></div>
+          <div><span class="ps-val">38.3%</span><span class="ps-key">OF ROUTE</span></div>
+        </div>
+        <div class="phase-note">Longest run: S19 = 456 blocks S (open corridor)<br>Notable: S25 &amp; S27 go north — terrain bypass</div>
+      </div>
+      <div class="phase phase-3">
+        <div class="phase-bg">03</div>
+        <div class="phase-id">PHASE 3 // SEGMENT S29 // PLANNED</div>
+        <h3>Valley Extension (Planned)</h3>
+        <p>Single continuation segment from The LoL Valley Station heading further west. Both this end and the eastern start point are also planned for extension, bringing total route length well beyond current measurement.</p>
+        <div class="phase-stat">
+          <div><span class="ps-val">339</span><span class="ps-key">BLOCKS</span></div>
+          <div><span class="ps-val">1</span><span class="ps-key">SEGMENT</span></div>
+          <div><span class="ps-val">TBD</span><span class="ps-key">FINAL LENGTH</span></div>
+        </div>
+        <div class="phase-note">Eastern start also extends — final total TBD<br>Projected complete route: 4,000+ blocks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGMENTS TABLE -->
+<section class="sec" id="segments">
+  <div class="inner reveal">
+    <div class="sec-head">
+      <div>
+        <div class="eye">COORDINATE LOG</div>
+        <h2>All <em>Segments.</em></h2>
+      </div>
+      <div class="sec-meta">29 TOTAL SEGMENTS<br>3,405+ BLOCKS (INCL. EXT.)</div>
+    </div>
+    <table class="seg-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>FROM (X, Z)</th>
+          <th>TO (X, Z)</th>
+          <th>DIR</th>
+          <th>BLOCKS</th>
+          <th>NOTE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="seg-group-hdr"><td colspan="6">PHASE 1 — Eastern Approach &nbsp;·&nbsp; S1–S18 &nbsp;·&nbsp; 1,892 blocks</td></tr>
+        <tr><td class="seg-num">S1</td><td class="coord">586, 193</td><td class="coord">401, 193</td><td class="dir-w">W</td><td class="dist-mid">185</td><td></td></tr>
+        <tr><td class="seg-num">S2</td><td class="coord">401, 193</td><td class="coord">401, 222</td><td class="dir-s">S</td><td class="dist-micro">29</td><td></td></tr>
+        <tr><td class="seg-num">S3</td><td class="coord">401, 222</td><td class="coord">-27, 222</td><td class="dir-w">W</td><td class="dist-big">428</td><td><span class="note-badge badge-long">LONG RUN</span></td></tr>
+        <tr><td class="seg-num">S4</td><td class="coord">-27, 222</td><td class="coord">-27, 290</td><td class="dir-s">S</td><td class="dist-micro">68</td><td></td></tr>
+        <tr><td class="seg-num">S5</td><td class="coord">-27, 290</td><td class="coord">-493, 290</td><td class="dir-w">W</td><td class="dist-big">466</td><td><span class="note-badge badge-long">LONGEST SEG</span></td></tr>
+        <tr><td class="seg-num">S6</td><td class="coord">-493, 290</td><td class="coord">-493, 312</td><td class="dir-s">S</td><td class="dist-micro">22</td><td></td></tr>
+        <tr><td class="seg-num">S7</td><td class="coord">-493, 312</td><td class="coord">-516, 312</td><td class="dir-w">W</td><td class="dist-micro">23</td><td></td></tr>
+        <tr><td class="seg-num">S8</td><td class="coord">-516, 312</td><td class="coord">-516, 323</td><td class="dir-s">S</td><td class="dist-micro">11</td><td><span class="note-badge badge-micro">MICRO</span></td></tr>
+        <tr><td class="seg-num">S9</td><td class="coord">-516, 323</td><td class="coord">-543, 323</td><td class="dir-w">W</td><td class="dist-micro">27</td><td></td></tr>
+        <tr><td class="seg-num">S10</td><td class="coord">-543, 323</td><td class="coord">-543, 443</td><td class="dir-s">S</td><td class="dist-mid">120</td><td></td></tr>
+        <tr><td class="seg-num">S11</td><td class="coord">-543, 443</td><td class="coord">-565, 443</td><td class="dir-w">W</td><td class="dist-micro">22</td><td></td></tr>
+        <tr><td class="seg-num">S12</td><td class="coord">-565, 443</td><td class="coord">-565, 634</td><td class="dir-s">S</td><td class="dist-mid">191</td><td></td></tr>
+        <tr><td class="seg-num">S13</td><td class="coord">-565, 634</td><td class="coord">-649, 634</td><td class="dir-w">W</td><td class="dist-micro">84</td><td></td></tr>
+        <tr><td class="seg-num">S14</td><td class="coord">-649, 634</td><td class="coord">-649, 639</td><td class="dir-s">S</td><td class="dist-micro">5</td><td><span class="note-badge badge-micro">MICRO CONNECTOR</span></td></tr>
+        <tr><td class="seg-num">S15</td><td class="coord">-649, 639</td><td class="coord">-764, 639</td><td class="dir-w">W</td><td class="dist-mid">115</td><td></td></tr>
+        <tr><td class="seg-num">S16</td><td class="coord">-764, 639</td><td class="coord">-764, 653</td><td class="dir-s">S</td><td class="dist-micro">14</td><td><span class="note-badge badge-micro">MICRO</span></td></tr>
+        <tr><td class="seg-num">S17</td><td class="coord">-764, 653</td><td class="coord">-773, 653</td><td class="dir-w">W</td><td class="dist-micro">9</td><td><span class="note-badge badge-micro">MICRO ADJUST</span></td></tr>
+        <tr><td class="seg-num">S18</td><td class="coord">-773, 653</td><td class="coord">-773, 726</td><td class="dir-s">S</td><td class="dist-micro">73</td><td><span class="note-badge badge-station">→ MALACCA STN</span></td></tr>
+
+        <tr class="seg-group-hdr"><td colspan="6">PHASE 2 — Malacca to The LoL Valley &nbsp;·&nbsp; S19–S28 &nbsp;·&nbsp; 1,174 blocks</td></tr>
+        <tr><td class="seg-num">S19</td><td class="coord">-773, 726</td><td class="coord">-773, 1182</td><td class="dir-s">S</td><td class="dist-big">456</td><td><span class="note-badge badge-long">2ND LONGEST</span></td></tr>
+        <tr><td class="seg-num">S20</td><td class="coord">-773, 1182</td><td class="coord">-853, 1182</td><td class="dir-w">W</td><td class="dist-micro">80</td><td></td></tr>
+        <tr><td class="seg-num">S21</td><td class="coord">-853, 1182</td><td class="coord">-853, 1240</td><td class="dir-s">S</td><td class="dist-micro">58</td><td></td></tr>
+        <tr><td class="seg-num">S22</td><td class="coord">-853, 1240</td><td class="coord">-998, 1240</td><td class="dir-w">W</td><td class="dist-mid">145</td><td></td></tr>
+        <tr><td class="seg-num">S23</td><td class="coord">-998, 1240</td><td class="coord">-998, 1314</td><td class="dir-s">S</td><td class="dist-micro">74</td><td></td></tr>
+        <tr><td class="seg-num">S24</td><td class="coord">-998, 1314</td><td class="coord">-1128, 1314</td><td class="dir-w">W</td><td class="dist-mid">130</td><td></td></tr>
+        <tr><td class="seg-num">S25</td><td class="coord">-1128, 1314</td><td class="coord">-1128, 1299</td><td class="dir-n" style="color:#f6a035">N</td><td class="dist-micro">15</td><td><span class="note-badge badge-north">NORTHWARD</span></td></tr>
+        <tr><td class="seg-num">S26</td><td class="coord">-1128, 1299</td><td class="coord">-1179, 1299</td><td class="dir-w">W</td><td class="dist-micro">51</td><td></td></tr>
+        <tr><td class="seg-num">S27</td><td class="coord">-1179, 1299</td><td class="coord">-1179, 1286</td><td class="dir-n" style="color:#f6a035">N</td><td class="dist-micro">13</td><td><span class="note-badge badge-north">NORTHWARD</span></td></tr>
+        <tr><td class="seg-num">S28</td><td class="coord">-1179, 1286</td><td class="coord">-1331, 1286</td><td class="dir-w">W</td><td class="dist-mid">152</td><td><span class="note-badge badge-station">→ VALLEY STN</span></td></tr>
+
+        <tr class="seg-group-hdr"><td colspan="6">PHASE 3 — Planned Extension &nbsp;·&nbsp; S29 &nbsp;·&nbsp; 339 blocks (built, endpoint TBD)</td></tr>
+        <tr><td class="seg-num">S29</td><td class="coord">-1331, 1286</td><td class="coord">-1670, 1286</td><td class="dir-w">W</td><td class="dist-mid">339</td><td><span class="note-badge badge-future">FUTURE EXT.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- STATIONS -->
+<section class="sec sec-alt" id="stations">
+  <div class="inner reveal">
+    <div class="sec-head">
+      <div>
+        <div class="eye">STATION REGISTRY</div>
+        <h2>Known <em>Stations.</em></h2>
+      </div>
+      <div class="sec-meta">2 CONFIRMED STATIONS<br>ENDPOINTS TBD PENDING EXTENSION</div>
+    </div>
+    <div class="stations">
+
+      <div class="stn">
+        <div class="stn-bg">MCK</div>
+        <div class="stn-id">STATION-01 // PHASE 1 TERMINUS</div>
+        <h3><em>Malacca</em> Station</h3>
+        <div class="stn-coord">-773, 726</div>
+        <p>
+          Malacca Station is the first confirmed station on the TLSRL route, marking the end of Phase 1's
+          eastern approach. Sits at the head of the long Phase 2 southward corridor — the route continues
+          456 blocks due south from this point before turning westward toward the valley.
+        </p>
+        <div class="stn-facts">
+          <div class="stn-fact"><span class="sf-k">COORDINATES</span><span class="sf-v">X -773 · Z 726</span></div>
+          <div class="stn-fact"><span class="sf-k">DISTANCE FROM START</span><span class="sf-v">1,892 blocks</span></div>
+          <div class="stn-fact"><span class="sf-k">PHASE</span><span class="sf-v">End of Phase 1</span></div>
+          <div class="stn-fact"><span class="sf-k">DISTANCE TO VALLEY</span><span class="sf-v">1,174 blocks</span></div>
+        </div>
+      </div>
+
+      <div class="stn">
+        <div class="stn-bg">VLY</div>
+        <div class="stn-id">STATION-02 // CURRENT WESTERN TERMINUS</div>
+        <h3>The LoL <em>Valley</em> Station</h3>
+        <div class="stn-coord">-1331, 1286</div>
+        <p>
+          Current western terminus of the measured route. The approach features two deliberate northward
+          corrections (S25 &amp; S27) suggesting the alignment threads between a ridge and the valley floor
+          before reaching the station platform. Extension planned westward from this point.
+        </p>
+        <div class="stn-facts">
+          <div class="stn-fact"><span class="sf-k">COORDINATES</span><span class="sf-v">X -1331 · Z 1286</span></div>
+          <div class="stn-fact"><span class="sf-k">DISTANCE FROM START</span><span class="sf-v">3,066 blocks</span></div>
+          <div class="stn-fact"><span class="sf-k">PHASE</span><span class="sf-v">End of Phase 2</span></div>
+          <div class="stn-fact"><span class="sf-k">EXTENSION</span><span class="sf-v">+339 blocks planned</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INFRASTRUCTURE -->
+<section class="sec" id="infrastructure">
+  <div class="inner reveal">
+    <div class="sec-head">
+      <div>
+        <div class="eye">BUILD RECORD // AS OF SURVEY DATE</div>
+        <h2>Infrastructure <em>Data.</em></h2>
+      </div>
+      <div class="sec-meta">CURRENT COUNTS<br>WILL GROW WITH EXTENSIONS</div>
+    </div>
+    <div class="infra-grid">
+      <div class="infra">
+        <span class="infra-icon">🏗️</span>
+        <h4>Bridges</h4>
+        <p>The route crosses 11 bridges — the highest single infrastructure count on this line. Bridges span rivers, ravines, and low terrain between biomes across both Phase 1 and Phase 2.</p>
+        <span class="infra-count"><em>11</em></span>
+        <span class="infra-label">BRIDGES CONFIRMED</span>
+      </div>
+      <div class="infra">
+        <span class="infra-icon">🪨</span>
+        <h4>Tunnels</h4>
+        <p>Two tunnel sections bore through elevated terrain. The concentration of micro-segments in S6–S18 (Phase 1 terrain zone) suggests at least one tunnel is located there.</p>
+        <span class="infra-count"><em>2</em></span>
+        <span class="infra-label">TUNNELS CONFIRMED</span>
+      </div>
+      <div class="infra">
+        <span class="infra-icon">🌿</span>
+        <h4>Biomes</h4>
+        <p>Seven distinct biomes crossed along the 3,066-block measured route. Biome transitions are a primary driver of the route's directionality changes — particularly through Phase 1.</p>
+        <span class="infra-count"><em>7</em></span>
+        <span class="infra-label">BIOMES TRAVERSED</span>
+      </div>
+    </div>
+
+    <div class="insights reveal">
+      <div class="insight">
+        <div class="ins-num">01</div>
+        <div class="ins-body">
+          <h5>The Complex Terrain Zone</h5>
+          <p>Segments S6–S18 (13 segments, 535 blocks) contain <strong>7 of the 13 turns</strong> in just 17% of the route distance. This tight cluster at ~X -493 to -773 is where the majority of bridges and tunnels likely concentrate — the route threading through the most technically challenging terrain on the line.</p>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="ins-num">02</div>
+        <div class="ins-body">
+          <h5>The Northward Corrections at Valley Approach</h5>
+          <p>S25 and S27 are the only two <strong>northward segments</strong> on the route. Located just before The LoL Valley Station, the track dips to Z=1314 then corrects back to Z=1286. This manoeuvre suggests a terrain obstacle — likely a ridge or cliff — requiring the alignment to find a lower crossing point before ascending to station level.</p>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="ins-num">03</div>
+        <div class="ins-body">
+          <h5>Long Corridor Efficiency</h5>
+          <p>The two longest segments (S5 at <strong>466 blocks W</strong> and S19 at <strong>456 blocks S</strong>) account for 30% of the total route distance in just 2 of 29 segments. These long, uninterrupted runs indicate that the terrain in these corridors was flat enough — or already cleared — to allow straight-line construction.</p>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="ins-num">04</div>
+        <div class="ins-body">
+          <h5>Route vs. Straight Line</h5>
+          <p>Direct distance from start to Valley Station is <strong>≈ 2,207 blocks</strong>. The actual route is <strong>3,066 blocks</strong> — 38.9% longer than the straight-line path. For a railway navigating 7 biomes, 2 tunnels, and 11 bridges, this is a respectable efficiency ratio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-inner">
+    <div>
+      <div class="ft-name"><em>TLSRL</em> — Route Documentation</div>
+      <div class="ft-sub">THE LOL–SPAWN RAILWAY LINK · TL RAILWAYS</div>
+      <p class="ft-desc">Official route survey and documentation for the TLSRL flagship line. Operated by TL Railways, built by Paiz™ Construction, a subsidiary of Paiz® Corp.</p>
+    </div>
+    <div class="ft-col">
+      <h5>ROUTE DATA</h5>
+      <a href="#map">Route Map</a>
+      <a href="#segments">Segment Log</a>
+      <a href="#stations">Station Profiles</a>
+      <a href="#infrastructure">Infrastructure</a>
+    </div>
+    <div class="ft-col">
+      <h5>THE LOL NETWORK</h5>
+      <a href="/tlrailways/">TL Railways</a>
+      <a href="/paizcorp/">Paiz® Corp</a>
+      <a href="/gov/">Government</a>
+      <a href="/main/">The LoL</a>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <p>© 2026 TL RAILWAYS — A SUBSIDIARY OF PAIZ® CORP — THE LEGEND OF LEGIONA</p>
+    <p>TLSRL · MEASURED 3,066 BLK · 2 STN · 11 BRIDGES · 2 TUNNELS · 7 BIOMES</p>
+  </div>
+</footer>
+
+<script>
+  // Reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);} });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Active nav
+  const secs = ['map','segments','stations','infrastructure'];
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(id => { const el=document.getElementById(id); if(el&&window.scrollY>=el.offsetTop-100) cur=id; });
+    links.forEach(a => a.classList.toggle('on', a.getAttribute('href')==='#'+cur));
+  }, {passive:true});
+
+  // Hamburger
+  const ham = document.getElementById('ham');
+  const drw = document.getElementById('drawer');
+  ham.addEventListener('click', () => { ham.classList.toggle('open'); drw.classList.toggle('open'); });
+  function closeNav(){ ham.classList.remove('open'); drw.classList.remove('open'); }
+  document.addEventListener('click', e => { if(!ham.contains(e.target)&&!drw.contains(e.target)) closeNav(); });
+</script>
+</body>
+</html>
