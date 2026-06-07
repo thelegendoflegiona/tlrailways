@@ -9,205 +9,186 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#111318;--bg2:#161920;--bg3:#1c2029;--bgc:#1a1e27;
-  --bdr:rgba(255,255,255,0.07);--bdr2:rgba(255,255,255,0.14);
-  --txt:#e8eaf0;--muted:rgba(232,234,240,0.45);--faint:rgba(232,234,240,0.22);
-  --grn:#34a06a;--grn-dk:#1d4a33;--grn-lt:#5cba8a;--grn-dim:rgba(52,160,106,.12);
+  --bg:#0b0c10;
+  --bg2:#111318;
+  --bg3:#161920;
+  --bgc:#13161c;
+  --bdr:rgba(52,160,106,0.12);
+  --bdr2:rgba(52,160,106,0.3);
+  --txt:#e8eaf0;
+  --muted:rgba(232,234,240,0.55);
+  --faint:rgba(232,234,240,0.25);
+  --grn:#34a06a;
+  --grn-dk:#122d1e;
+  --grn-lt:#5cba8a;
+  --grn-dim:rgba(52,160,106,0.08);
   --gold:#c9a84c;
-  --tb:30px;--nh:60px;
+  --gold-dim:rgba(201,168,76,0.08);
+  --blue:#4182e6;
+  --blue-dim:rgba(65,130,230,0.08);
+  --tb:30px;
+  --nh:70px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.75;overflow-x:hidden}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;
+}
 
 /* TOPBAR */
-.topbar{position:fixed;top:0;left:0;right:0;height:var(--tb);z-index:500;background:#0d0f14;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;padding:0 5%;overflow-x:auto;scrollbar-width:none}
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--tb);z-index:500;background:#050608;border-bottom:1px solid rgba(52,160,106,0.1);display:flex;align-items:center;padding:0 5%;overflow-x:auto;scrollbar-width:none}
 .topbar::-webkit-scrollbar{display:none}
 .topbar-links{display:flex;align-items:center;white-space:nowrap;flex-shrink:0}
-.topbar-links a{font-family:'IBM Plex Mono',monospace;font-size:0.47rem;letter-spacing:1.8px;color:rgba(232,234,240,0.28);text-decoration:none;padding:0 12px;height:var(--tb);display:flex;align-items:center;transition:color 0.2s,background 0.2s;border-right:1px solid rgba(255,255,255,0.04)}
-.topbar-links a:first-child{border-left:1px solid rgba(255,255,255,0.04)}
-.topbar-links a:hover{color:rgba(232,234,240,0.65)}
-.topbar-links a.here{color:var(--grn);background:var(--grn-dim)}
+.topbar-links a{font-family:'IBM Plex Mono',monospace;font-size:0.55rem;letter-spacing:2px;color:rgba(232,234,240,0.3);text-decoration:none;padding:0 16px;height:var(--tb);display:flex;align-items:center;transition:all 0.2s;border-right:1px solid rgba(52,160,106,0.08)}
+.topbar-links a:hover{color:var(--grn);background:rgba(52,160,106,0.04)}
+.topbar-links a.here{color:var(--grn);background:var(--grn-dim);font-weight:600}
 
 /* NAV */
-nav{position:sticky;top:var(--tb);z-index:400;height:var(--nh);display:flex;align-items:center;padding:0 5%;background:rgba(17,19,24,0.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr);gap:32px}
-.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;flex-shrink:0}
-.nav-mark{width:36px;height:36px;background:transparent;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;transition:box-shadow 0.3s}
-.nav-brand:hover .nav-mark{box-shadow:0 0 16px rgba(52,160,106,0.45)}
-.nav-logo{width:36px;height:36px;object-fit:contain;display:block}
-.nav-bname{font-family:'DM Serif Display',serif;font-size:1rem;display:block;line-height:1}
-.nav-bsub{font-family:'IBM Plex Mono',monospace;font-size:0.46rem;letter-spacing:2px;color:var(--faint);display:block;margin-top:1px}
-.nav-links{display:flex;gap:2px;flex:1}
-.nav-links a{padding:5px 12px;font-family:'IBM Plex Mono',monospace;font-size:0.56rem;letter-spacing:1.5px;color:var(--muted);text-decoration:none;transition:color 0.2s}
-.nav-links a:hover,.nav-links a.on{color:var(--grn)}
-.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
-.spill{display:flex;align-items:center;gap:6px;padding:4px 12px;border:1px solid rgba(52,160,106,0.25);font-family:'IBM Plex Mono',monospace;font-size:0.5rem;letter-spacing:1.5px;color:var(--grn)}
-.spill-dot{width:5px;height:5px;border-radius:50%;background:var(--grn);animation:blink 2s infinite}
-.nav-back{padding:5px 14px;font-family:'IBM Plex Mono',monospace;font-size:0.54rem;letter-spacing:1.5px;color:var(--faint);text-decoration:none;border:1px solid var(--bdr);transition:all 0.2s}
-.nav-back:hover{color:var(--txt);border-color:var(--bdr2)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;margin-left:auto}
-.hamburger span{display:block;width:22px;height:1.5px;background:var(--muted);transition:all .25s}
-.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-.hamburger.open span:nth-child(2){opacity:0}
-.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.drawer{display:none;position:fixed;top:calc(var(--tb) + var(--nh));left:0;right:0;background:rgba(13,15,20,.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);z-index:390;padding:1.5rem 5%;flex-direction:column}
-.drawer.open{display:flex}
-.drawer a{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:2px;color:var(--muted);text-decoration:none;padding:.85rem 0;border-bottom:1px solid var(--bdr);transition:color .2s}
-.drawer a:hover{color:var(--grn)}
-.drawer a:last-child{border:none}
+nav{position:sticky;top:var(--tb);z-index:400;height:var(--nh);display:flex;align-items:center;padding:0 5%;background:rgba(11,12,16,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);gap:40px}
+.nav-brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
+.nav-mark{width:42px;height:42px;background:var(--grn-dim);border:1px solid var(--bdr);border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all 0.3s}
+.nav-brand:hover .nav-mark{border-color:var(--grn);box-shadow:0 0 15px rgba(52,160,106,0.3)}
+.nav-logo{width:28px;height:28px;object-fit:contain}
+.nav-bname{font-family:'DM Serif Display',serif;font-size:1.2rem;display:block;line-height:1;letter-spacing:0.5px}
+.nav-bsub{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;letter-spacing:2.5px;color:var(--grn);display:block;margin-top:3px}
+.nav-links{display:flex;gap:4px}
+.nav-links a{padding:6px 14px;font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:1.5px;color:var(--muted);text-decoration:none;transition:all 0.2s;border-radius:4px}
+.nav-links a:hover, .nav-links a.on{color:var(--grn);background:var(--grn-dim)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:16px}
+.spill{display:flex;align-items:center;gap:8px;padding:5px 14px;background:var(--grn-dim);border:1px solid rgba(52,160,106,0.25);border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:0.55rem;letter-spacing:1.5px;color:var(--grn);font-weight:600}
+.spill-dot{width:6px;height:6px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:blink 2s infinite}
+.nav-back{padding:6px 16px;font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:1px;color:var(--faint);text-decoration:none;border:1px solid var(--bdr);border-radius:4px;transition:all 0.2s}
+.nav-back:hover{color:var(--txt);border-color:var(--bdr2);background:rgba(255,255,255,0.02)}
 
 /* HERO */
-.hero{margin-top:var(--tb);padding:80px 5% 60px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-60deg,transparent,transparent 48px,rgba(255,255,255,.013) 48px,rgba(255,255,255,.013) 49px)}
-.hero-glow{position:absolute;top:-10%;left:-5%;width:55vw;height:55vw;background:radial-gradient(circle,rgba(52,160,106,.1) 0%,transparent 65%);pointer-events:none}
-.hero-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--grn)}
-.hero-inner{max-width:1200px;margin:0 auto;position:relative}
-.hero-eye{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:3px;color:var(--grn);margin-bottom:1.4rem;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp .7s ease .1s forwards}
-.hero-eye::before{content:'';width:24px;height:1px;background:var(--grn);opacity:.6}
-.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,5vw,5rem);line-height:1;letter-spacing:-1.5px;color:var(--txt);margin-bottom:1rem;opacity:0;animation:fadeUp .7s ease .2s forwards}
-.hero h1 em{font-style:italic;color:var(--grn)}
-.hero-sub{font-size:.97rem;color:var(--muted);font-weight:300;max-width:520px;line-height:1.85;margin-bottom:2.5rem;opacity:0;animation:fadeUp .7s ease .3s forwards}
-.hero-chips{display:flex;gap:8px;flex-wrap:wrap;opacity:0;animation:fadeUp .7s ease .4s forwards}
-.chip{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:1.5px;padding:5px 12px;border:1px solid;display:flex;align-items:center;gap:6px}
-.chip-grn{border-color:rgba(52,160,106,.3);color:var(--grn);background:var(--grn-dim)}
-.chip-dim{border-color:var(--bdr);color:var(--faint)}
-.chip-gold{border-color:rgba(201,168,76,.3);color:var(--gold);background:rgba(201,168,76,.06)}
+.hero{margin-top:var(--tb);padding:100px 5% 80px;position:relative;background:radial-gradient(circle at 80% 20%, rgba(52,160,106,0.06) 0%, transparent 50%)}
+.hero-inner{max-width:1200px;margin:0 auto}
+.hero-eye{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:4px;color:var(--grn);margin-bottom:1.5rem;display:flex;align-items:center;gap:16px}
+.hero-eye::before{content:'';width:30px;height:1px;background:var(--grn)}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(3rem,6vw,5.5rem);line-height:1.05;letter-spacing:-1px;margin-bottom:1.5rem}
+.hero h1 em{font-style:italic;color:var(--grn);font-weight:400}
+.hero-sub{font-size:1.05rem;color:var(--muted);font-weight:300;max-width:600px;line-height:1.8;margin-bottom:3rem}
+.hero-chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:0.55rem;letter-spacing:1.5px;padding:6px 14px;border:1px solid var(--bdr);background:var(--bg2);color:var(--muted);display:flex;align-items:center;gap:8px;border-radius:4px}
+.chip-grn{border-color:rgba(52,160,106,0.3);color:var(--grn);background:var(--grn-dim)}
+.chip-gold{border-color:rgba(201,168,76,0.3);color:var(--gold);background:var(--gold-dim)}
 
-/* STATS STRIP */
+/* STATS */
 .stats{background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
 .stats-inner{max-width:1200px;margin:0 auto;display:flex}
-.stat{flex:1;padding:2rem 2rem;border-right:1px solid var(--bdr);transition:background .2s}
+.stat{flex:1;padding:2.5rem 2rem;border-right:1px solid var(--bdr);transition:all 0.2s}
 .stat:last-child{border-right:none}
 .stat:hover{background:var(--grn-dim)}
-.sv{font-family:'DM Serif Display',serif;font-size:2.3rem;color:var(--txt);display:block;line-height:1;margin-bottom:.3rem}
-.sv em{font-style:italic;color:var(--grn)}
-.sk{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:2px;color:var(--faint)}
+.sv{font-family:'DM Serif Display',serif;font-size:2.6rem;color:var(--txt);display:block;line-height:1;margin-bottom:0.4rem}
+.sv em{font-style:italic;color:var(--grn);font-weight:400}
+.sk{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:2px;color:var(--faint);text-transform:uppercase}
 
 /* SECTIONS */
-.sec{padding:5rem 5%}
+.sec{padding:6rem 5%}
 .sec-alt{background:var(--bg2);border-top:1px solid var(--bdr)}
 .inner{max-width:1200px;margin:0 auto}
-.sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;padding-bottom:1.2rem;border-bottom:1px solid var(--bdr);flex-wrap:wrap;gap:12px}
-.eye{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:3px;color:var(--grn);margin-bottom:.5rem}
-.sec-head h2{font-family:'DM Serif Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);color:var(--txt)}
-.sec-head h2 em{font-style:italic;color:var(--grn)}
-.sec-meta{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:1.5px;color:var(--faint);text-align:right;line-height:2}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--bdr);flex-wrap:wrap;gap:20px}
+.eye{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:3px;color:var(--grn);margin-bottom:0.5rem;text-transform:uppercase}
+.sec-head h2{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--txt)}
+.sec-head h2 em{font-style:italic;color:var(--grn);font-weight:400}
+.sec-meta{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:2px;color:var(--faint);text-align:right;line-height:2}
 
-/* PHASE CARDS */
-.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bdr)}
-.phase{background:var(--bgc);padding:2rem 1.8rem;position:relative;overflow:hidden;border-top:3px solid}
-.phase-1{border-color:var(--grn)}
-.phase-2{border-color:#5b9cf6}
-.phase-3{border-color:rgba(201,168,76,.6)}
-.phase-bg{position:absolute;right:-10px;bottom:-20px;font-family:'DM Serif Display',serif;font-size:7rem;font-weight:900;opacity:.035;line-height:1;pointer-events:none}
-.phase-id{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:2px;color:var(--faint);margin-bottom:.8rem}
-.phase h3{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--txt);margin-bottom:.4rem;line-height:1.2}
-.phase p{font-size:.85rem;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:1rem}
-.phase-stat{display:flex;gap:20px;padding-top:1rem;border-top:1px solid var(--bdr)}
-.ps-val{font-family:'DM Serif Display',serif;font-size:1.3rem;display:block;line-height:1}
-.phase-1 .ps-val{color:var(--grn)}
-.phase-2 .ps-val{color:#5b9cf6}
-.phase-3 .ps-val{color:var(--gold)}
-.ps-key{font-family:'IBM Plex Mono',monospace;font-size:.44rem;letter-spacing:1.5px;color:var(--faint);display:block}
-.phase-note{font-family:'IBM Plex Mono',monospace;font-size:.44rem;letter-spacing:1px;color:var(--faint);margin-top:.8rem;line-height:1.6;border-left:2px solid;padding-left:.8rem}
-.phase-1 .phase-note{border-color:rgba(52,160,106,.3)}
-.phase-2 .phase-note{border-color:rgba(91,156,246,.3)}
-.phase-3 .phase-note{border-color:rgba(201,168,76,.3)}
+/* MAP INTERACTIVE BLOCK */
+.map-card{background:var(--bgc);border:1px solid var(--bdr);border-radius:8px;padding:2rem;box-shadow:0 10px 40px rgba(0,0,0,0.3);position:relative}
+.map-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:15px;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:1rem}
+.map-title{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted);font-weight:600}
+.map-legend{display:flex;gap:20px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:1px;color:var(--muted)}
+.leg-line{width:24px;height:3px;border-radius:2px}
+.leg-dash{width:24px;height:0;border-top:2px dashed}
+.route-map-container {width:100%;background:#090a0d;border:1px solid rgba(255,255,255,0.03);border-radius:6px;position:relative;overflow:hidden}
 
-/* SEGMENT TABLE */
-.seg-table{width:100%;border-collapse:collapse;font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.5px}
-.seg-table th{padding:.7rem 1rem;text-align:left;font-size:.46rem;letter-spacing:2px;color:var(--faint);border-bottom:1px solid var(--bdr);font-weight:400;background:var(--bg2)}
-.seg-table td{padding:.65rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--muted);transition:background .15s}
-.seg-table tr:hover td{background:rgba(255,255,255,.025)}
-.seg-table .seg-num{color:var(--faint);font-size:.5rem}
-.seg-table .coord{color:rgba(232,234,240,.35);font-size:.52rem}
-.seg-table .dir-w{color:#5b9cf6}
-.seg-table .dir-s{color:var(--grn)}
-.seg-table .dir-n{color:#f6a035}
-.seg-table .dir-e{color:var(--gold)}
-.seg-table .dist-big{color:var(--grn);font-weight:600}
-.seg-table .dist-micro{color:var(--faint)}
-.seg-table .dist-mid{color:var(--txt)}
-.seg-table .note-badge{font-size:.44rem;letter-spacing:1.5px;padding:1px 7px;border:1px solid;display:inline-block}
-.badge-station{border-color:rgba(52,160,106,.4);color:var(--grn);background:var(--grn-dim)}
-.badge-long{border-color:rgba(91,156,246,.3);color:#5b9cf6;background:rgba(91,156,246,.07)}
-.badge-future{border-color:rgba(201,168,76,.3);color:var(--gold);background:rgba(201,168,76,.06)}
-.badge-micro{border-color:var(--bdr);color:var(--faint)}
-.badge-north{border-color:rgba(246,160,53,.3);color:#f6a035;background:rgba(246,160,53,.07)}
-.seg-group-hdr td{background:rgba(255,255,255,.03);font-size:.46rem;letter-spacing:2px;color:var(--faint);padding:.5rem 1rem;border-bottom:1px solid var(--bdr)}
+/* SVG STYLING & ANIMATIONS */
+.map-svg {width:100%;height:auto;display:block;transform:scale(1)}
+.grid-line {stroke:rgba(52,160,106,0.03);stroke-width:1}
+.grid-line-major {stroke:rgba(52,160,106,0.07);stroke-width:1;stroke-dasharray:4 4}
+.rail-line-main {stroke:var(--grn);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.rail-line-spur {stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 4;fill:none}
+.rail-line-private {stroke:var(--gold);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2 4;fill:none}
+.rail-line-planned {stroke:var(--grn);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:5 5;fill:none;opacity:0.4}
+.map-station {fill:#090a0d;stroke:var(--grn);stroke-width:3;cursor:pointer;transition:all 0.3s ease}
+.map-station:hover {fill:var(--grn);r:9;filter:drop-shadow(0 0 8px var(--grn))}
+.map-station-special {stroke:var(--gold)}
+.map-station-special:hover {fill:var(--gold);filter:drop-shadow(0 0 8px var(--gold))}
+.map-text {font-family:'IBM Plex Mono',monospace;fill:var(--txt);font-size:11px;font-weight:500;pointer-events:none}
+.map-text-muted {fill:var(--faint);font-size:9px}
+.map-node {fill:rgba(232,234,240,0.3);r:3}
+
+/* TABLES */
+.seg-table{width:100%;border-collapse:collapse;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.5px}
+.seg-table th{padding:1rem;text-align:left;font-size:0.55rem;letter-spacing:2px;color:var(--grn);border-bottom:1px solid var(--bdr);font-weight:600;background:var(--bg3);text-transform:uppercase}
+.seg-table td{padding:0.9rem 1rem;border-bottom:1px solid rgba(52,160,106,0.05);color:var(--muted);transition:all 0.15s}
+.seg-table tr:hover td{background:var(--grn-dim);color:var(--txt)}
+.seg-table .coord{color:var(--faint)}
+.seg-table .dir-w{color:var(--blue);font-weight:600}
+.seg-table .dir-s{color:var(--grn);font-weight:600}
+.seg-table .dir-n{color:var(--gold);font-weight:600}
+.note-badge{font-size:0.5rem;letter-spacing:1px;padding:2px 8px;border:1px solid;border-radius:3px;display:inline-block;font-weight:600}
+.badge-station{border-color:var(--grn);color:var(--grn);background:var(--grn-dim)}
+.badge-private{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+.badge-spur{border-color:var(--blue);color:var(--blue);background:var(--blue-dim)}
+.seg-group-hdr td{background:rgba(52,160,106,0.04);font-size:0.55rem;letter-spacing:2px;color:var(--txt);font-weight:600;padding:0.7rem 1rem;border-bottom:1px solid var(--bdr)}
 
 /* STATION CARDS */
-.stations{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bdr)}
-.stn{background:var(--bgc);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .2s;border-top:3px solid var(--grn)}
-.stn:hover{background:var(--bg3)}
-.stn-bg{position:absolute;right:-10px;bottom:-20px;font-family:'DM Serif Display',serif;font-size:6rem;font-weight:900;color:rgba(52,160,106,.06);line-height:1;pointer-events:none}
-.stn-id{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:2.5px;color:var(--faint);margin-bottom:.8rem}
-.stn h3{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--txt);margin-bottom:.5rem;letter-spacing:-.3px}
-.stn h3 em{font-style:italic;color:var(--grn)}
-.stn-coord{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:1.5px;color:var(--grn);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-.stn-coord::before{content:'◉';font-size:.6rem}
-.stn p{font-size:.88rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:1.2rem}
-.stn-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr);margin-top:1rem}
-.stn-fact{background:var(--bg2);padding:.8rem 1rem}
-.sf-k{font-family:'IBM Plex Mono',monospace;font-size:.44rem;letter-spacing:1.5px;color:var(--faint);display:block;margin-bottom:3px}
-.sf-v{font-size:.88rem;color:var(--txt);font-weight:500}
+.stations{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.stn{background:var(--bgc);border:1px solid var(--bdr);border-radius:8px;padding:3rem 2.5rem;position:relative;overflow:hidden;transition:all 0.3s}
+.stn:hover{border-color:var(--bdr2);transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.4)}
+.stn-bg{position:absolute;right:-10px;bottom:-30px;font-family:'DM Serif Display',serif;font-size:8rem;font-weight:400;color:rgba(52,160,106,0.03);line-height:1;pointer-events:none}
+.stn-id{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:3px;color:var(--grn);margin-bottom:1rem;font-weight:600}
+.stn h3{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--txt);margin-bottom:0.6rem}
+.stn h3 em{font-style:italic;color:var(--grn);font-weight:400}
+.stn-coord{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:1.5px;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:8px}
+.stn p{font-size:0.95rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:1.5rem}
+.stn-facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1.5rem}
+.stn-fact{background:var(--bg2);border:1px solid rgba(52,160,106,0.05);border-radius:4px;padding:1rem}
+.sf-k{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;letter-spacing:1.5px;color:var(--faint);display:block;margin-bottom:4px;text-transform:uppercase}
+.sf-v{font-size:0.95rem;color:var(--txt);font-weight:500}
 
-/* INFRA GRID */
-.infra-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--bdr)}
-.infra{background:var(--bgc);padding:2rem 1.8rem;position:relative;transition:background .2s}
-.infra:hover{background:var(--bg3);box-shadow:inset 0 0 40px rgba(52,160,106,.04)}
-.infra-icon{font-size:1.5rem;margin-bottom:1rem;display:block}
-.infra-count{font-family:'DM Serif Display',serif;font-size:2.4rem;color:var(--grn);display:block;line-height:1}
-.infra-count em{font-style:italic}
-.infra-label{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:2px;color:var(--faint)}
-
-/* INSIGHTS */
-.insights{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bdr);margin-top:3rem}
-.insight{background:var(--bgc);padding:1.5rem 1.8rem;display:flex;gap:16px;align-items:flex-start;transition:background .2s}
-.insight:hover{background:var(--bg3)}
-.ins-num{font-family:'DM Serif Display',serif;font-size:1.5rem;font-weight:900;color:rgba(52,160,106,.25);flex-shrink:0;line-height:1;padding-top:2px}
-.ins-body h5{font-size:.9rem;font-weight:600;color:var(--txt);margin-bottom:4px}
-.ins-body p{font-size:.83rem;color:var(--muted);line-height:1.7;font-weight:300}
-.ins-body strong{color:var(--grn);font-weight:600}
+/* INFRASTRUCTURE GRID */
+.infra-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.infra{background:var(--bgc);border:1px solid var(--bdr);border-radius:6px;padding:2rem 1.5rem;position:relative;transition:all 0.3s;text-align:center}
+.infra:hover{border-color:var(--bdr2);background:var(--bg3)}
+.infra-count{font-family:'DM Serif Display',serif;font-size:3rem;color:var(--grn);display:block;line-height:1;margin-bottom:0.5rem}
+.infra-label{font-family:'IBM Plex Mono',monospace;font-size:0.55rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
 
 /* FOOTER */
-footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
-.ft-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:50px;margin-bottom:2rem}
-.ft-name{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--txt);margin-bottom:.3rem}
-.ft-name em{font-style:italic;color:var(--grn)}
-.ft-sub{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:2px;color:var(--faint);margin-bottom:1rem}
-.ft-desc{font-size:.86rem;color:var(--faint);line-height:1.8;font-weight:300;max-width:280px}
-.ft-col h5{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:2.5px;color:var(--faint);margin-bottom:1rem}
-.ft-col a{display:block;font-size:.86rem;color:rgba(232,234,240,.28);text-decoration:none;margin-bottom:.5rem;font-weight:300;transition:color .2s}
+footer{border-top:1px solid var(--bdr);background:#060709;padding:4rem 5% 3rem}
+.ft-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:3rem}
+.ft-name{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--txt);margin-bottom:0.4rem}
+.ft-name em{font-style:italic;color:var(--grn);font-weight:400}
+.ft-sub{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;letter-spacing:3px;color:var(--faint);margin-bottom:1.5rem}
+.ft-desc{font-size:0.9rem;color:var(--faint);line-height:1.8;font-weight:300;max-width:320px}
+.ft-col h5{font-family:'IBM Plex Mono',monospace;font-size:0.55rem;letter-spacing:2.5px;color:var(--grn);margin-bottom:1.2rem;text-transform:uppercase}
+.ft-col a{display:block;font-size:0.9rem;color:var(--muted);text-decoration:none;margin-bottom:0.6rem;font-weight:300;transition:color 0.2s}
 .ft-col a:hover{color:var(--grn)}
-.ft-bot{border-top:1px solid var(--bdr);padding-top:1.2rem;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.ft-bot p{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:1.5px;color:var(--faint)}
+.ft-bot{border-top:1px solid rgba(52,160,106,0.06);padding-top:1.5rem;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.ft-bot p{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:1.5px;color:var(--faint)}
 
 /* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 8px var(--grn)}50%{opacity:0.3;box-shadow:0 0 2px var(--grn)}}
+.reveal{opacity:0;transform:translateY(25px);transition:all 0.8s cubic-bezier(0.16, 1, 0.3, 1)}
 .reveal.in{opacity:1;transform:none}
 
 /* RESPONSIVE */
-@media(max-width:1100px) {
-  .stations{grid-template-columns:1fr}
+@media(max-width:1024px){
   .infra-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:1000px){
-  .phases{grid-template-columns:1fr}
-  .insights{grid-template-columns:1fr}
   .ft-inner{grid-template-columns:1fr 1fr}
 }
-@media(max-width:700px){
+@media(max-width:768px){
   .stats-inner{flex-direction:column}
-  .stat{border-right:none;border-bottom:1px solid var(--bdr);padding:1.4rem 1.2rem}
-  .stat:last-child{border-bottom:none}
+  .stat{border-right:none;border-bottom:1px solid var(--bdr);padding:1.5rem}
+  .stations{grid-template-columns:1fr}
   .infra-grid{grid-template-columns:1fr}
-  .nav-links,.spill,.nav-back{display:none}
-  .hamburger{display:flex}
-  .ft-inner{grid-template-columns:1fr;gap:2rem}
+  .nav-links, .spill, .nav-back{display:none}
+  .ft-inner{grid-template-columns:1fr;gap:2.5rem}
   .ft-bot{flex-direction:column;text-align:center}
 }
 </style>
@@ -230,102 +211,122 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
     <div class="nav-mark"><img src="/tlrailways/assets/images/TLSRL_LOGO.png" alt="TLSRL Logo" class="nav-logo"></div>
     <div>
       <span class="nav-bname">TLSRL</span>
-      <span class="nav-bsub">ROUTE DOCUMENTATION</span>
+      <span class="nav-bsub">ROUTE PLANNER</span>
     </div>
   </a>
   <div class="nav-links">
+    <a href="#map" class="on">MAP</a>
     <a href="#segments">SEGMENTS</a>
     <a href="#stations">STATIONS</a>
     <a href="#infrastructure">INFRASTRUCTURE</a>
   </div>
   <div class="nav-right">
-    <div class="spill"><div class="spill-dot"></div> ROUTE ACTIVE</div>
-    <a href="/tlrailways/" class="nav-back">← TL RAILWAYS</a>
+    <div class="spill"><div class="spill-dot"></div> MAIN ROUTE ACTIVE</div>
+    <a href="/tlrailways/" class="nav-back">← SYSTEM PORTAL</a>
   </div>
-  <button class="hamburger" id="ham" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
-<div class="drawer" id="drawer">
-  <a href="#segments" onclick="closeNav()">SEGMENTS</a>
-  <a href="#stations" onclick="closeNav()">STATIONS</a>
-  <a href="#infrastructure" onclick="closeNav()">INFRASTRUCTURE</a>
-  <a href="/tlrailways/">← TL RAILWAYS</a>
-</div>
 
 <div class="hero">
-  <div class="hero-bar"></div>
-  <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="hero-eye">TLSRL // MEGAPROJECT-01 // TL RAILWAYS FLAGSHIP</div>
+    <div class="hero-eye">TLSRL // METRIC PROTOCOL SYSTEM // CORE REDESIGN</div>
     <h1>The LoL–Spawn<br><em>Railway Link.</em></h1>
     <p class="hero-sub">
-      Full route documentation — coordinates, measured distances, station profiles, and infrastructure logs
-      for the TLSRL, TL Railways' flagship line connecting The Legend of Legiona to Spawn across Skyxion.
+      Premium engineered architectural layout, map coordinates, and tactical segment data blueprints for the TLSRL arterial network across the Skyxion sectors.
     </p>
     <div class="hero-chips">
-      <div class="chip chip-grn"><span>●</span> ROUTE ACTIVE</div>
-      <div class="chip chip-grn">3,189 TOTAL BLOCKS OPERATIONAL</div>
-      <div class="chip chip-dim">3 BUILT STATIONS</div>
-      <div class="chip chip-dim">10 BRIDGES</div>
-      <div class="chip chip-dim">2 TUNNELS</div>
-      <div class="chip chip-dim">3 CULVERTS</div>
-      <div class="chip chip-gold">SEED: 118695183337216084</div>
+      <div class="chip chip-grn"><span>●</span> PUBLIC SECTOR ONLINE</div>
+      <div class="chip chip-grn">3,066 METRIC BLOCKS</div>
+      <div class="chip chip-gold">PAIZ PRIVATE LINKS MAPPED</div>
     </div>
   </div>
 </div>
 
 <div class="stats">
   <div class="stats-inner">
-    <div class="stat"><span class="sv"><em>2,746</em></span><span class="sk">MAIN LINE BLOCKS — SPAWN TO VALLEY TERM.</span></div>
-    <div class="stat"><span class="sv">3,189</span><span class="sk">TOTAL BLOCKS INCL. OPERATIONAL SPURS</span></div>
-    <div class="stat"><span class="sv">1,403</span><span class="sk">BLOCKS — SPAWN TO MALACCA STATION</span></div>
-    <div class="stat"><span class="sv"><em>25</em></span><span class="sk">MAIN LINE SEGMENTS // 24 DIRECTIONAL TURNS</span></div>
+    <div class="stat"><span class="sv"><em>3,066</em></span><span class="sk">Mainline Blocks Mapped [cite: 10]</span></div>
+    <div class="stat"><span class="sv">1,892</span><span class="sk">Spawn to Malacca Hub [cite: 10]</span></div>
+    <div class="stat"><span class="sv">29</span><span class="sk">Active Layout Segments [cite: 10]</span></div>
   </div>
 </div>
 
-<section class="sec" id="phases">
+<section class="sec" id="map">
   <div class="inner reveal">
     <div class="sec-head">
       <div>
-        <div class="eye">PROJECT CHRONOLOGY</div>
-        <h2>Line <em>Phases.</em></h2>
+        <div class="eye">Cartographic Blueprint & Layout</div>
+        <h2>Vector <em>Network Map.</em></h2>
       </div>
-      <div class="sec-meta">STATUS LOGS<br>ALTAËR SYSTEM NETWORK</div>
+      <div class="sec-meta">COORDINATE MAPPING VER 2.6<br>PROJECTION: SYSTEM NORTH UP [cite: 10]</div>
     </div>
-    <div class="phases">
-      <div class="phase phase-1">
-        <div class="phase-bg">01</div>
-        <div class="phase-id">PHASE 01 // PUBLIC LOGISTICS</div>
-        <h3>Active Main Line & Spurs</h3>
-        <p>The primary core segment linking Spawn Station westward through Malacca down to the Valley terminal boundary, alongside industrial branch lines.</p>
-        <div class="phase-stat">
-          <div><span class="ps-val">3,189</span><span class="ps-key">OPERATIONAL BLOCKS</span></div>
-          <div><span class="ps-val">3</span><span class="ps-key">STATIONS OPEN</span></div>
+    
+    <div class="map-card">
+      <div class="map-hdr">
+        <div class="map-title">TLSRL INFRASTRUCTURE MATRIX · PLAN VIEW</div>
+        <div class="map-legend">
+          <div class="leg"><div class="leg-line" style="background:var(--grn)"></div> MAIN ACTIVE</div>
+          <div class="leg"><div class="leg-line" style="background:var(--blue)"></div> MALACCA SPUR [cite: 13]</div>
+          <div class="leg"><div class="leg-line" style="background:var(--gold)"></div> PAIZ CORP RAIL [cite: 14]</div>
+          <div class="leg"><div class="leg-dash" style="border-color:var(--grn)"></div> EXTENSIONS</div>
         </div>
-        <div class="phase-note">Opened to the public. Fully verified logs tracking all standard junctions, tunnels, and deep-water overpasses.</div>
       </div>
-      <div class="phase phase-2">
-        <div class="phase-bg">02</div>
-        <div class="phase-id">PHASE 02 // PROPOSED EXPANSION</div>
-        <h3>Mansion Eastern Extension</h3>
-        <p>Strategic blueprints designed to push transit infrastructure directly east from Spawn Station to connect high-profile luxury estates.</p>
-        <div class="phase-stat">
-          <div><span class="ps-val">645</span><span class="ps-key">PLANNED BLOCKS</span></div>
-          <div><span class="ps-val">1</span><span class="ps-key">RIVER CROSSING</span></div>
-        </div>
-        <div class="phase-note">Active mapping phase. Initial segments set coordinates from X: 125.5 to X: 741.5, pointing toward final Mansion coordinates.</div>
-      </div>
-      <div class="phase phase-3">
-        <div class="phase-bg">03</div>
-        <div class="phase-id">PHASE 03 // FUTURE BLUEPRINT</div>
-        <h3>Valley Beyond Extension</h3>
-        <p>Long-range structural projections intended to carry transit vectors outside the Phase 1 border corridor deep into unexplored territory.</p>
-        <div class="phase-stat">
-          <div><span class="ps-val">TBD</span><span class="ps-key">PROJECTED CORRIDOR</span></div>
-          <div><span class="ps-val">—</span><span class="ps-key">STATIONS SURVEYED</span></div>
-        </div>
-        <div class="phase-note">Coming soon. Field data logs will automatically scale this architecture as soon as territorial mapping clears.</div>
+      
+      <div class="route-map-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" class="map-svg">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(52,160,106,0.04)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="#07080b" />
+          <rect width="100%" height="100%" fill="url(#grid)" />
+          
+          <line x1="0" y1="120" x2="1000" y2="120" class="grid-line-major" />
+          <line x1="0" y1="320" x2="1000" y2="320" class="grid-line-major" />
+          <line x1="780" y1="0" x2="780" y2="500" class="grid-line-major" />
+          <line x1="320" y1="0" x2="320" y2="500" class="grid-line-major" />
+
+          <path d="M 780 120 L 730 120 L 730 150 L 520 150 L 520 180 L 500 180 L 500 240 L 450 240 L 450 320 L 320 320 L 320 420 L 220 420 L 100 420" class="rail-line-main" />
+          
+          <path d="M 320 280 L 240 280 L 240 260 L 140 260" class="rail-line-spur" />
+          
+          <path d="M 730 120 L 730 60 L 680 60" class="rail-line-private" />
+
+          <path d="M 780 120 L 880 120" class="rail-line-planned" />
+          <path d="M 100 420 L 40 420" class="rail-line-planned" />
+
+          <circle cx="730" cy="150" class="map-node" />
+          <circle cx="520" cy="150" class="map-node" />
+          <circle cx="500" cy="180" class="map-node" />
+          <circle cx="450" cy="240" class="map-node" />
+
+          <circle cx="780" cy="120" r="7" class="map-station" id="node-spawn"/>
+          <text x="780" y="100" text-anchor="middle" class="map-text">SPAWN STATION</text>
+          <text x="780" y="138" text-anchor="middle" class="map-text-muted">X: 125, Z: 222 [cite: 1]</text>
+
+          <circle cx="320" cy="320" r="7" class="map-station" id="node-malacca"/>
+          <text x="335" y="315" text-anchor="start" class="map-text">MALACCA STATION</text>
+          <text x="335" y="330" text-anchor="start" class="map-text-muted">X: -773, Z: 726 [cite: 7]</text>
+
+          <circle cx="100" cy="420" r="7" class="map-station" id="node-valley"/>
+          <text x="100" y="445" text-anchor="middle" class="map-text">VALLEY STATION</text>
+          <text x="100" y="460" text-anchor="middle" class="map-text-muted">X: -1343, Z: 1285 [cite: 13]</text>
+
+          <circle cx="730" cy="120" r="5" class="map-station map-station-special" id="node-paiz"/>
+          <text x="715" y="95" text-anchor="end" class="map-text" fill="var(--gold)">PAIZ CORRIDOR [cite: 14]</text>
+
+          <circle cx="320" cy="280" r="5" class="map-station map-station-special" id="node-spur-int"/>
+          <text x="310" y="270" text-anchor="end" class="map-text" fill="var(--blue)">PORT SPUR INT [cite: 13]</text>
+
+          <g transform="translate(930, 70)">
+            <circle cx="0" cy="0" r="25" fill="none" stroke="rgba(52,160,106,0.2)" stroke-width="1" />
+            <line x1="0" y1="-30" x2="0" y2="30" stroke="rgba(52,160,106,0.3)" stroke-width="1" />
+            <line x1="-30" y1="0" x2="30" y2="0" stroke="rgba(52,160,106,0.3)" stroke-width="1" />
+            <polygon points="0,-25 6,-5 0,-10 -6,-5" fill="var(--grn)" />
+            <text x="0" y="-35" class="map-text" text-anchor="middle" font-size="12" fill="var(--grn)">N</text>
+          </g>
+          
+          <text x="30" y="45" class="map-text" font-size="10" opacity="0.3">SYSTEM PROTOCOL SCALE: 1:4 BLOCK UNIT PROJECTION</text>
+        </svg>
       </div>
     </div>
   </div>
@@ -335,61 +336,30 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
   <div class="inner reveal">
     <div class="sec-head">
       <div>
-        <div class="eye">METRIC TRACKING MATRIX</div>
-        <h2>Segment <em>Analysis.</em></h2>
+        <div class="eye">Structural Matrix logs</div>
+        <h2>Segment <em>Blueprints.</em></h2>
       </div>
-      <div class="sec-meta">25 MAIN LINE SEGMENTS<br>2,746 CORE ROUTE BLOCKS</div>
     </div>
+    
     <table class="seg-table">
       <thead>
         <tr>
-          <th>#</th>
-          <th>FROM (X, Z)</th>
-          <th>TO (X, Z)</th>
-          <th>DIR</th>
-          <th>BLOCKS</th>
-          <th>CONSTRUCTION / STRUCTURAL NOTES</th>
+          <th>ID</th>
+          <th>Starting Coordinate (X, Z)</th>
+          <th>Destination Terminal (X, Z)</th>
+          <th>Vector</th>
+          <th>Classification / Operations</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="seg-group-hdr"><td colspan="6">PHASE 01 — ACTIVE MAIN LINE (SPAWN STATION TO THE LOL VALLEY TERMINUS)</td></tr>
-        <tr><td class="seg-num">MS1</td><td class="coord">125.5, 222.5</td><td class="coord">-27.5, 222.5</td><td class="dir-w">W</td><td class="dist-mid">153</td><td>Origin Segment. Includes Spawn Station #01, Tunnel #01 (42 blk), & River Bridge (36 blk)</td></tr>
-        <tr><td class="seg-num">MS2</td><td class="coord">-27.5, 222.5</td><td class="coord">-27.5, 290.5</td><td class="dir-s">S</td><td class="dist-micro">68</td><td>Steep grade escalation. Ascends 10 blocks vertically from Y: 70 to Y: 80</td></tr>
-        <tr><td class="seg-num">MS3</td><td class="coord">-27.5, 290.5</td><td class="coord">-493.5, 290.5</td><td class="dir-w">W</td><td class="dist-big">466</td><td>Long run. Reaches Y: 82 summit, traverses 215-block Unnamed Strait Bridge, descends to Y: 70</td></tr>
-        <tr><td class="seg-num">MS4</td><td class="coord">-493.5, 290.5</td><td class="coord">-493.5, 312.5</td><td class="dir-s">S</td><td class="dist-micro">22</td><td>Maneuvering corridor corner tracking layout</td></tr>
-        <tr><td class="seg-num">MS5</td><td class="coord">-493.5, 312.5</td><td class="coord">-516.5, 312.5</td><td class="dir-w">W</td><td class="dist-micro">23</td><td>Maneuvering corridor lateral adjustment</td></tr>
-        <tr><td class="seg-num">MS6</td><td class="coord">-516.5, 312.5</td><td class="coord">-516.5, 323.5</td><td class="dir-s">S</td><td class="dist-micro">11</td><td>Pre-ocean alignment segment</td></tr>
-        <tr><td class="seg-num">MS7</td><td class="coord">-516.5, 323.5</td><td class="coord">-543.5, 323.5</td><td class="dir-w">W</td><td class="dist-micro">27</td><td>Ocean approach vector. Major Great Ocean Bridge begins at X: -530.5</td></tr>
-        <tr><td class="seg-num">MS8</td><td class="coord">-543.5, 323.5</td><td class="coord">-543.5, 443.5</td><td class="dir-s">S</td><td class="dist-mid">120</td><td>Traverses open deep ocean waters on elevated marine columns</td></tr>
-        <tr><td class="seg-num">MS9</td><td class="coord">-543.5, 443.5</td><td class="coord">-565.5, 443.5</td><td class="dir-w">W</td><td class="dist-micro">22</td><td>Ocean grid adjustment connector path</td></tr>
-        <tr><td class="seg-num">MS10</td><td class="coord">-565.5, 443.5</td><td class="coord">-565.5, 634.5</td><td class="dist-mid">191</td><td class="dir-s">S</td><td>Extended oversea span. Great Ocean Bridge structure terminates at Z: 598.5</td></tr>
-        <tr><td class="seg-num">MS11</td><td class="coord">-565.5, 634.5</td><td class="coord">-649.5, 634.5</td><td class="dir-w">W</td><td class="dist-micro">84</td><td>Mainland descent. Track steps down 4 blocks vertically from Y: 70 to Y: 66</td></tr>
-        <tr><td class="seg-num">MS12</td><td class="coord">-649.5, 634.5</td><td class="coord">-649.5, 639.5</td><td class="dir-s">S</td><td class="dist-micro">5</td><td>Micro adjustment segment shifting track alignment south</td></tr>
-        <tr><td class="seg-num">MS13</td><td class="coord">-649.5, 639.5</td><td class="coord">-764.5, 639.5</td><td class="dir-w">W</td><td class="dist-mid">115</td><td>Tangential run crossing coastal lowlands</td></tr>
-        <tr><td class="seg-num">MS14</td><td class="coord">-764.5, 639.5</td><td class="coord">-764.5, 653.5</td><td class="dir-s">S</td><td class="dist-micro">14</td><td>Inbound vector shifting alignment to Malacca hub entry</td></tr>
-        <tr><td class="seg-num">MS15</td><td class="coord">-764.5, 653.5</td><td class="coord">-773.5, 653.5</td><td class="dir-w">W</td><td class="dist-micro">9</td><td>Junction terminal. Features Malacca Port Industrial Spur Interchange at point end</td></tr>
-        <tr><td class="seg-num">MS16</td><td class="coord">-773.5, 653.5</td><td class="coord">-773.5, 1182.5</td><td class="dir-s">S</td><td class="dist-big">529</td><td>Longest tangent run. Features Malacca Stn, 2 Malacca River bridges, & 105 blk LoL River overpass</td></tr>
-        <tr><td class="seg-num">MS17</td><td class="coord">-773.5, 1182.5</td><td class="coord">-853.5, 1182.5</td><td class="dir-w">W</td><td class="dist-micro">80</td><td>Includes an additional 49-block secondary overpass crossing the LoL River channel</td></tr>
-        <tr><td class="seg-num">MS18</td><td class="coord">-853.5, 1182.5</td><td class="coord">-853.5, 1240.5</td><td class="dir-s">S</td><td class="dist-micro">58</td><td>Connecting vector moving along the LoL Hill flank</td></tr>
-        <tr><td class="seg-num">MS19</td><td class="coord">-853.5, 1240.5</td><td class="coord">-998.5, 1240.5</td><td class="dir-w">W</td><td class="dist-mid">145</td><td>Features integrated 9-block masonry culvert system framing the LoL Hill Fall</td></tr>
-        <tr><td class="seg-num">MS20</td><td class="coord">-998.5, 1240.5</td><td class="coord">-998.5, 1314.5</td><td class="dir-s">S</td><td class="dist-micro">74</td><td>Spans a final 60-block massive steel overpass directly over the LoL River basin</td></tr>
-        <tr><td class="seg-num">MS21</td><td class="coord">-998.5, 1314.5</td><td class="coord">-1128.5, 1314.5</td><td class="dir-w">W</td><td class="dist-mid">130</td><td>Features a 2-block ground culvert engineered for pedestrian, horse, and livestock crossings</td></tr>
-        <tr><td class="seg-num">MS22</td><td class="coord">-1128.5, 1314.5</td><td class="coord">-1128.5, 1299.5</td><td class="dir-n">N</td><td class="dist-micro">15</td><td>Northward Correction Vector. Shifting corridor to bypass valley topographical constraints</td></tr>
-        <tr><td class="seg-num">MS23</td><td class="coord">-1128.5, 1299.5</td><td class="coord">-1179.5, 1299.5</td><td class="dir-w">W</td><td class="dist-micro">51</td><td>Intermediate approach stretch entering the foothills</td></tr>
-        <tr><td class="seg-num">MS24</td><td class="coord">-1179.5, 1299.5</td><td class="coord">-1179.5, 1286.5</td><td class="dir-n">N</td><td class="dist-micro">13</td><td>Final Northward Correction Vector. Aligns track directly with terminal tunnel mouth</td></tr>
-        <tr><td class="seg-num">MS25</td><td class="coord">-1179.5, 1286.5</td><td class="coord">-1460.5, 1286.5</td><td class="dir-w">W</td><td class="dist-mid">281</td><td>Terminal Segment. Features 201 blk subterranean tunnel and deep Valley Station hub</td></tr>
-
-        <tr class="seg-group-hdr"><td colspan="6">OPERATIONAL SPUR LINES (PHASE 01 LOGISTICS BRANCHES)</td></tr>
-        <tr><td class="seg-num">PS1</td><td class="coord">34.5, 222.5</td><td class="coord">34.5, 79.5</td><td class="dir-n">N</td><td class="dist-mid">143</td><td>Paiz Corp Private Rail. Diverges from MS1 interchange; spans 28 blk strait overpass to Y: 63</td></tr>
-        <tr><td class="seg-num">MPS1</td><td class="coord">-773.5, 653.5</td><td class="coord">-773.5, 651.5</td><td class="dir-n">N</td><td class="dist-micro">2</td><td>Malacca Port Spur Part 1. Diverges at core route interchange turning north</td></tr>
-        <tr><td class="seg-num">MPS2</td><td class="coord">-773.5, 651.5</td><td class="coord">-784.5, 651.5</td><td class="dir-w">W</td><td class="dist-micro">11</td><td>Malacca Port Spur Part 2. Shifts vector due west</td></tr>
-        <tr><td class="seg-num">MPS3</td><td class="coord">-784.5, 651.5</td><td class="coord">-784.5, 617.5</td><td class="dir-n">N</td><td class="dist-micro">34</td><td>Malacca Port Spur Part 3. Tangent running north to clear bay shores</td></tr>
-        <tr><td class="seg-num">MPS4</td><td class="coord">-784.5, 617.5</td><td class="coord">-1037.5, 617.5</td><td class="dir-w">W</td><td class="dist-mid">253</td><td>Malacca Port Spur Part 4. Includes 5 blk bridge, 2 blk culvert, terminates at future port site</td></tr>
-
-        <tr class="seg-group-hdr"><td colspan="6">PHASE 02 — PROPOSED FUTURE PLANS (EASTERN CORRIDOR EXTENSION)</td></tr>
-        <tr><td class="seg-num">FS1</td><td class="coord">125.5, 222.5</td><td class="coord">401.5, 222.5</td><td class="dir-e">E</td><td class="dist-mid">276</td><td>Blueprinted line extending East from Spawn Stn. Includes planned 54 blk River Bridge</td></tr>
-        <tr><td class="seg-num">FS2</td><td class="coord">401.5, 222.5</td><td class="coord">401.5, 193.5</td><td class="dir-n">N</td><td class="dist-micro">29</td><td>Blueprinted northward offset corridor to bypass territorial borders</td></tr>
-        <tr><td class="seg-num">FS3</td><td class="coord">401.5, 193.5</td><td class="coord">741.5, 193.5</td><td class="dir-e">E</td><td class="dist-mid">340</td><td>Current survey limit line. Final corridor designed to point directly to Mansion at (-1817.5, -3499.5)</td></tr>
+        <tr class="seg-group-hdr"><td colspan="5">PHASE 01 — SECTOR ALPHA MAINWAY [cite: 1]</td></tr>
+        <tr><td>S1</td><td class="coord">125.5, 222.5 [cite: 1]</td><td class="coord">36.5, 222.5 [cite: 1]</td><td class="dir-w">WEST [cite: 1]</td><td><span class="note-badge badge-station">Spawn Tunnel System #01 [cite: 1]</span></td></tr>
+        <tr><td>S2</td><td class="coord">11.5, 222.5 [cite: 1]</td><td class="coord">-24.5, 222.5 [cite: 1]</td><td class="dir-w">WEST [cite: 1]</td><td>River Overpass Crossing [cite: 1]</td></tr>
+        <tr><td>S3</td><td class="coord">-27.5, 222.5 [cite: 2]</td><td class="coord">-27.5, 290.5 [cite: 2]</td><td class="dir-s">SOUTH [cite: 2]</td><td>Vertical Step Elevation Node [cite: 2]</td></tr>
+        <tr><td>S4</td><td class="coord">-133.5, 290.5 [cite: 3]</td><td class="coord">-348.5, 288.5 [cite: 3]</td><td class="dir-w">WEST [cite: 3]</td><td>Strait Viaduct Trans-Crossing [cite: 3]</td></tr>
+        <tr class="seg-group-hdr"><td colspan="5">INTEGRATED PRIVATE SECTOR LINES & SPURS</td></tr>
+        <tr><td>P1</td><td class="coord">34.5, 222.5 [cite: 14]</td><td class="coord">34.5, 79.5 [cite: 16]</td><td class="dir-n">NORTH [cite: 14, 16]</td><td><span class="note-badge badge-private">Paiz Corp Logistics Line [cite: 14, 16]</span></td></tr>
+        <tr><td>SP1</td><td class="coord">-773.5, 653.5 [cite: 13]</td><td class="coord">-1037.5, 617.5 [cite: 13]</td><td class="dir-w">WEST [cite: 13]</td><td><span class="note-badge badge-spur">Malacca Port Infrastructure Spur [cite: 13]</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -399,55 +369,33 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
   <div class="inner reveal">
     <div class="sec-head">
       <div>
-        <div class="eye">MASS TRANSIT HUBS</div>
+        <div class="eye">Primary Terminals</div>
         <h2>Station <em>Profiles.</em></h2>
       </div>
-      <div class="sec-meta">3 REGIONAL TERMINALS<br>OPERATIONAL SECURITY CLEARANCE</div>
     </div>
+    
     <div class="stations">
       <div class="stn">
         <div class="stn-bg">SPN</div>
-        <div class="stn-id">STATION-01 // RAILWAY ORIGIN POINT</div>
-        <h3>Spawn <em>Station</em> #01</h3>
-        <div class="stn-coord">125.5 · 222.5</div>
-        <p>
-          The anchor terminal facility of the TLSRL grid, constructed in immediate proximity to the initial world spawn coordinates. Acts as the primary junction nexus linking the active Phase 1 western mainline track with the future planned Phase 2 eastern network expanses.
-        </p>
+        <div class="stn-id">STATION-01 // TRANSIT HEAD</div>
+        <h3><em>Spawn</em> Station</h3>
+        <div class="stn-coord">◉ X: 125.5 · Z: 222.5 [cite: 1]</div>
+        <p>The eastern anchor of the railway system. Positioned directly at the central spawning coordinates, integrating regional public transit lines seamlessly into the sector framework[cite: 1].</p>
         <div class="stn-facts">
-          <div class="stn-fact"><span class="sf-k">COORDINATES</span><span class="sf-v">X 125.5 · Y 70 · Z 222.5</span></div>
-          <div class="stn-fact"><span class="sf-k">LINE LOCATION</span><span class="sf-v">Kilometer 0.0</span></div>
-          <div class="stn-fact"><span class="sf-k">PHASE TRANSIT</span><td class="sf-v">Core Junction 01</td></div>
-          <div class="stn-fact"><span class="sf-k">SPUR SYSTEM</span><span class="sf-v">Paiz Branch Proximate</span></div>
+          <div class="stn-fact"><span class="sf-k">Elevation Baseline</span><span class="sf-v">Y: 70 Blocks [cite: 1]</span></div>
+          <div class="stn-fact"><span class="sf-k">Interchange Links</span><span class="sf-v">Paiz Corp Access [cite: 14]</span></div>
         </div>
       </div>
+      
       <div class="stn">
         <div class="stn-bg">MCK</div>
-        <div class="stn-id">STATION-02 // MID-ROUTE DISTRIBUTION</div>
-        <h3>Malacca <em>Station</em></h3>
-        <div class="stn-coord">-773.5 · 726.5</div>
-        <p>
-          A vital commercial hub situated in the lowlands of the Malacca district. The terminal structure manages significant public transit traffic and serves as the strategic gatekeeper to the Malacca Port industrial track, which branches off at a massive grade interchange just north of the hub.
-        </p>
+        <div class="stn-id">STATION-02 // INTERMEDIATE HUB</div>
+        <h3><em>Malacca</em> Station</h3>
+        <div class="stn-coord">◉ X: -773.5 · Z: 726.5 [cite: 7]</div>
+        <p>The core transit node for cross-river freight and public logistics[cite: 6, 7]. Connects directly with heavy development spurs driving resource transport towards the coastal installations[cite: 13].</p>
         <div class="stn-facts">
-          <div class="stn-fact"><span class="sf-k">COORDINATES</span><span class="sf-v">X -773.5 · Y 67 · Z 726.5</span></div>
-          <div class="stn-fact"><span class="sf-k">LINE LOCATION</span><span class="sf-v">1,403 blocks from Spawn</span></div>
-          <div class="stn-fact"><span class="sf-k">PHASE TRANSIT</span><td class="sf-v">Phase 1 Lowlands Hub</td></div>
-          <div class="stn-fact"><span class="sf-k">SPUR SYSTEM</span><span class="sf-v">Malacca Port Line Nexus</span></div>
-        </div>
-      </div>
-      <div class="stn">
-        <div class="stn-bg">VLY</div>
-        <div class="stn-id">STATION-03 // PHASE 1 TERM HUB</div>
-        <h3>The LoL Valley <em>Station</em></h3>
-        <div class="stn-coord">-1343.5 · 1285.5</div>
-        <p>
-          The westernmost outpost terminal for Phase 1. Subterranean facility integrated directly inside a 201-block mountain tunnel. Features reinforced masonry arches engineered to serve as a deep freight loading terminal and the future jump-off launch point for Phase 3 lines.
-        </p>
-        <div class="stn-facts">
-          <div class="stn-fact"><span class="sf-k">COORDINATES</span><span class="sf-v">X -1343.5 · Y 68 · Z 1285.5</span></div>
-          <div class="stn-fact"><span class="sf-k">LINE LOCATION</span><span class="sf-v">2,629 blocks from Spawn</span></div>
-          <div class="stn-fact"><span class="sf-k">PHASE TRANSIT</span><td class="sf-v">Phase 1 Terminus Border</td></div>
-          <div class="stn-fact"><span class="sf-k">SPUR SYSTEM</span><span class="sf-v">Isolated Terminal</span></div>
+          <div class="stn-fact"><span class="sf-k">Elevation Baseline</span><span class="sf-v">Y: 67 Blocks [cite: 7]</span></div>
+          <div class="stn-fact"><span class="sf-k">Spur Attachments</span><span class="sf-v">Malacca Port Line [cite: 13]</span></div>
         </div>
       </div>
     </div>
@@ -458,102 +406,27 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
   <div class="inner reveal">
     <div class="sec-head">
       <div>
-        <div class="eye">CIVIL ENGINEERING LOGISTICS</div>
-        <h2>Built <em>Infrastructure.</em></h2>
+        <div class="eye">Structural Metrics</div>
+        <h2>Asset <em>Inventory.</em></h2>
       </div>
-      <div class="sec-meta">LOGS RECOGNIZED IN ACTIVE PROPERTY CORRIDOR</div>
     </div>
+    
     <div class="infra-grid">
       <div class="infra">
-        <span class="infra-icon">🌉</span>
-        <h4>Bridges & Overpasses</h4>
-        <p>Elevated spans traversing rivers, oceanic straits, and wide deep sea water basins.</p>
-        <span class="infra-count">10</span>
-        <span class="infra-label">COMPLETED STRUCTURES</span>
+        <span class="infra-count">11</span>
+        <span class="infra-label">Bridges Completed</span>
       </div>
       <div class="infra">
-        <span class="infra-icon">🚇</span>
-        <h4>Subterranean Tunnels</h4>
-        <p>Heavy clearance tunnels carved directly through mountain facades and baseline rock walls.</p>
         <span class="infra-count">02</span>
-        <span class="infra-label">COMPLETED SECTORS</span>
+        <span class="infra-label">Sub-Tunnels Built</span>
       </div>
       <div class="infra">
-        <span class="infra-icon">🔲</span>
-        <h4>Masonry Culverts</h4>
-        <p>Under-track drainage vaults and pedestrian thoroughfares managing surrounding geographic safety.</p>
-        <span class="infra-count">03</span>
-        <span class="infra-label">INSTALLED UNITS</span>
+        <span class="infra-count">07</span>
+        <span class="infra-label">Biomes Traversed</span>
       </div>
       <div class="infra">
-        <span class="infra-icon">🔄</span>
-        <h4>Directional Turns</h4>
-        <p>High-speed structural curves banking standard track vectors across changing terrain contours.</p>
-        <span class="infra-count">24</span>
-        <span class="infra-label">MAIN CORNERS RECORDED</span>
-      </div>
-    </div>
-
-    <div class="insights">
-      <div class="insight">
-        <div class="ins-num">01</div>
-        <div class="ins-body">
-          <h5>The Overland Marine Overpasses</h5>
-          <p>Over <strong>15% of the Phase 1 route</strong> relies completely on high-elevation spans, notably the 215-block Unnamed Strait Bridge and the sprawling, multi-segmented Great Ocean Bridge system spanning 353 blocks between coordinates Z: 323.5 and Z: 598.5.</p>
-        </div>
-      </div>
-      <div class="insight">
-        <div class="ins-num">02</div>
-        <div class="ins-body">
-          <h5>Foothill Northward Corrections</h5>
-          <p>To safely clear extreme topographic cliffs framing the entry vectors to The LoL Valley, track segments <strong>MS22 and MS24</strong> introduce deliberate northward micro-corrections (15 and 13 blocks respectively) to cleanly meet the entry mouth of the 201-block baseline terminal tunnel.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="landmarks">
-  <div class="inner reveal">
-    <div class="sec-head">
-      <div>
-        <div class="eye">REGIONAL OBSERVATION COORDINATES</div>
-        <h2>Surrounding <em>Landmarks.</em></h2>
-      </div>
-      <div class="sec-meta">SURVEY MAP DATA LOGS</div>
-    </div>
-    <div class="infra-grid">
-      <div class="infra" style="padding:1.4rem;">
-        <span class="infra-label">STRONGHOLD</span>
-        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-1455.5 · 1156.5</h4>
-      </div>
-      <div class="infra" style="padding:1.4rem;">
-        <span class="infra-label">THE LOL HILL</span>
-        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-967.5 · 1164.5</h4>
-      </div>
-      <div class="infra" style="padding:1.4rem;">
-        <span class="infra-label">CONVENTION CENTRE (TLCC)</span>
-        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-1021.5 · 1018.5</h4>
-      </div>
-      <div class="infra" style="padding:1.4rem;">
-        <span class="infra-label">MALACCA OLD TOWN</span>
-        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-916.5 · 588.5</h4>
-      </div>
-      <div class="infra" style="padding:1.4rem;">
-        <span class="infra-label">TRADING HALL</span>
-        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">51.5 · 17.5</h4>
-      </div>
-      <div class="infra" style="padding:1.4rem;">
-        <span class="infra-label">THE LOL FALL</span>
-        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-916.5 · 1188.5</h4>
-      </div>
-      <div class="infra" style="padding:1.4rem;">
-        <span class="infra-label">CHERRY BLOSSOM PARK</span>
-        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-699.5 · 1176.5</h4>
-      </div>
-      <div class="infra" style="padding:1.4rem;">
-        <span class="infra-label">BLACK GATE BRIDGE</span>
-        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-1220.5 · 1084.5</h4>
+        <span class="infra-count">02</span>
+        <span class="infra-label">Private Spurs Mapped</span>
       </div>
     </div>
   </div>
@@ -562,51 +435,55 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
 <footer>
   <div class="ft-inner">
     <div>
-      <div class="ft-name">TLSRL // <em>TL Railways</em></div>
-      <div class="ft-sub">ROUTE DOCUMENTATION DECK</div>
-      <p class="ft-desc">Architectural surveying ledger and infrastructure verification metrics documenting flagship track corridors across the Skyxion surface.</p>
+      <div class="ft-name">TL <em>Railways</em></div>
+      <div class="ft-sub">A SUBSIDIARY OF PAIZ® CORP</div>
+      <p class="ft-desc">Automated rail networks engineered to high-density precision layout specification standards across server sectors.</p>
     </div>
     <div class="ft-col">
-      <h5>DIVISIONS</h5>
-      <a href="/tlrailways/">TL Railways</a>
-      <a href="/paizcorp/">Paiz® Corp</a>
-      <a href="/gov/">Government</a>
-      <a href="/main/">The LoL</a>
+      <h5>Network Sectors</h5>
+      <a href="#">The LoL Grid</a>
+      <a href="#">Spawn Hub Portal</a>
+      <a href="#">Malacca Logistics Delta</a>
     </div>
     <div class="ft-col">
-      <h5>METRICS STATUS</h5>
-      <p style="font-size:0.8rem; font-weight:300; color:var(--faint); line-height:1.6;">Spawn Target: 125.5, 66, 177.5<br>Core Main Line: 2,746 BLK<br>Branch Spur Tracks: 443 BLK</p>
+      <h5>Protocols</h5>
+      <a href="#">Structural Logs</a>
+      <a href="#">Vector Datasets</a>
+      <a href="#">Corporate Clearance</a>
     </div>
   </div>
   <div class="ft-bot">
-    <p>© 2026 TL RAILWAYS — A SUBSIDIARY OF PAIZ® CORP — THE LEGEND OF LEGIONA</p>
-    <p>TLSRL LOGS · VERIFIED 3,189 BLK TRACKAGE · 3 STN · 10 BRIDGES · 2 TUNNELS · 3 CULVERTS</p>
+    <p>© 2026 TL RAILWAYS — THE LEGEND OF LEGIONA ARCHIVES</p>
+    <p>LAYOUT REGISTERED · SKX-ALTAËR SYSTEM CODEBASE</p>
   </div>
 </footer>
 
 <script>
-  // Reveal animation script
+  // Intersection Reveal Animation
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);} });
+    entries.forEach(e => { 
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        obs.unobserve(e.target);
+      } 
+    });
   }, { threshold: 0.05 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // Hamburger drawer navigation toggle
-  const ham = document.getElementById('ham');
-  const drw = document.getElementById('drawer');
-  if(ham && drw) {
-    ham.addEventListener('click', () => {
-      ham.classList.toggle('open');
-      drw.classList.toggle('open');
+  // Active Navigation Sync on Scroll
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let currentSection = '';
+    document.querySelectorAll('section').forEach(sec => {
+      const top = sec.offsetTop - 120;
+      if (window.scrollY >= top) {
+        currentSection = sec.getAttribute('id');
+      }
     });
-  }
-  function closeNav() {
-    if(ham && drw) {
-      ham.classList.remove('open');
-      drw.classList.remove('open');
-    }
-  }
+    links.forEach(a => {
+      a.classList.toggle('on', a.getAttribute('href') === '#' + currentSection);
+    });
+  }, { passive: true });
 </script>
-
 </body>
 </html>
