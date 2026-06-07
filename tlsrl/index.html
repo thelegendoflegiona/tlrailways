@@ -94,17 +94,6 @@ nav{position:sticky;top:var(--tb);z-index:400;height:var(--nh);display:flex;alig
 .sec-head h2 em{font-style:italic;color:var(--grn)}
 .sec-meta{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:1.5px;color:var(--faint);text-align:right;line-height:2}
 
-/* ROUTE MAP */
-.map-card{background:var(--bgc);border:1px solid var(--bdr);padding:1.8rem;transition:border-color .3s}
-.map-card:hover{border-color:rgba(52,160,106,.2)}
-.map-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap;gap:10px}
-.map-title{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:2.5px;color:var(--faint)}
-.map-legend{display:flex;gap:16px;flex-wrap:wrap}
-.leg{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:1px;color:var(--faint)}
-.leg-line{width:18px;height:3px;border-radius:1px}
-.leg-dash{width:18px;height:0;border-top:2px dashed}
-.route-svg{width:100%;height:auto;display:block}
-
 /* PHASE CARDS */
 .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bdr)}
 .phase{background:var(--bgc);padding:2rem 1.8rem;position:relative;overflow:hidden;border-top:3px solid}
@@ -136,6 +125,7 @@ nav{position:sticky;top:var(--tb);z-index:400;height:var(--nh);display:flex;alig
 .seg-table .dir-w{color:#5b9cf6}
 .seg-table .dir-s{color:var(--grn)}
 .seg-table .dir-n{color:#f6a035}
+.seg-table .dir-e{color:var(--gold)}
 .seg-table .dist-big{color:var(--grn);font-weight:600}
 .seg-table .dist-micro{color:var(--faint)}
 .seg-table .dist-mid{color:var(--txt)}
@@ -148,7 +138,7 @@ nav{position:sticky;top:var(--tb);z-index:400;height:var(--nh);display:flex;alig
 .seg-group-hdr td{background:rgba(255,255,255,.03);font-size:.46rem;letter-spacing:2px;color:var(--faint);padding:.5rem 1rem;border-bottom:1px solid var(--bdr)}
 
 /* STATION CARDS */
-.stations{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bdr)}
+.stations{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bdr)}
 .stn{background:var(--bgc);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .2s;border-top:3px solid var(--grn)}
 .stn:hover{background:var(--bg3)}
 .stn-bg{position:absolute;right:-10px;bottom:-20px;font-family:'DM Serif Display',serif;font-size:6rem;font-weight:900;color:rgba(52,160,106,.06);line-height:1;pointer-events:none}
@@ -164,12 +154,10 @@ nav{position:sticky;top:var(--tb);z-index:400;height:var(--nh);display:flex;alig
 .sf-v{font-size:.88rem;color:var(--txt);font-weight:500}
 
 /* INFRA GRID */
-.infra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bdr)}
+.infra-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--bdr)}
 .infra{background:var(--bgc);padding:2rem 1.8rem;position:relative;transition:background .2s}
 .infra:hover{background:var(--bg3);box-shadow:inset 0 0 40px rgba(52,160,106,.04)}
 .infra-icon{font-size:1.5rem;margin-bottom:1rem;display:block}
-.infra h4{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--txt);margin-bottom:.4rem}
-.infra p{font-size:.86rem;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:.8rem}
 .infra-count{font-family:'DM Serif Display',serif;font-size:2.4rem;color:var(--grn);display:block;line-height:1}
 .infra-count em{font-style:italic}
 .infra-label{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:2px;color:var(--faint)}
@@ -203,9 +191,12 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
 .reveal.in{opacity:1;transform:none}
 
 /* RESPONSIVE */
+@media(max-width:1100px) {
+  .stations{grid-template-columns:1fr}
+  .infra-grid{grid-template-columns:1fr 1fr}
+}
 @media(max-width:1000px){
   .phases{grid-template-columns:1fr}
-  .infra-grid{grid-template-columns:1fr 1fr}
   .insights{grid-template-columns:1fr}
   .ft-inner{grid-template-columns:1fr 1fr}
 }
@@ -213,19 +204,16 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
   .stats-inner{flex-direction:column}
   .stat{border-right:none;border-bottom:1px solid var(--bdr);padding:1.4rem 1.2rem}
   .stat:last-child{border-bottom:none}
-  .stations{grid-template-columns:1fr}
   .infra-grid{grid-template-columns:1fr}
   .nav-links,.spill,.nav-back{display:none}
   .hamburger{display:flex}
   .ft-inner{grid-template-columns:1fr;gap:2rem}
   .ft-bot{flex-direction:column;text-align:center}
-  .insights{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-links">
     <a href="/paizcorp/">PAIZ® CORP</a>
@@ -237,7 +225,6 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
   </div>
 </div>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-brand">
     <div class="nav-mark"><img src="/tlrailways/assets/images/TLSRL_LOGO.png" alt="TLSRL Logo" class="nav-logo"></div>
@@ -247,7 +234,6 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
     </div>
   </a>
   <div class="nav-links">
-    <a href="#map">MAP</a>
     <a href="#segments">SEGMENTS</a>
     <a href="#stations">STATIONS</a>
     <a href="#infrastructure">INFRASTRUCTURE</a>
@@ -261,14 +247,12 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
   </button>
 </nav>
 <div class="drawer" id="drawer">
-  <a href="#map" onclick="closeNav()">ROUTE MAP</a>
   <a href="#segments" onclick="closeNav()">SEGMENTS</a>
   <a href="#stations" onclick="closeNav()">STATIONS</a>
   <a href="#infrastructure" onclick="closeNav()">INFRASTRUCTURE</a>
   <a href="/tlrailways/">← TL RAILWAYS</a>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-bar"></div>
   <div class="hero-glow"></div>
@@ -276,221 +260,85 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
     <div class="hero-eye">TLSRL // MEGAPROJECT-01 // TL RAILWAYS FLAGSHIP</div>
     <h1>The LoL–Spawn<br><em>Railway Link.</em></h1>
     <p class="hero-sub">
-      Full route documentation — coordinates, measured distances, station profiles, and infrastructure data
+      Full route documentation — coordinates, measured distances, station profiles, and infrastructure logs
       for the TLSRL, TL Railways' flagship line connecting The Legend of Legiona to Spawn across Skyxion.
     </p>
     <div class="hero-chips">
       <div class="chip chip-grn"><span>●</span> ROUTE ACTIVE</div>
-      <div class="chip chip-grn">3,066 BLOCKS MEASURED</div>
-      <div class="chip chip-dim">2 STATIONS</div>
-      <div class="chip chip-dim">11 BRIDGES</div>
+      <div class="chip chip-grn">3,189 TOTAL BLOCKS OPERATIONAL</div>
+      <div class="chip chip-dim">3 BUILT STATIONS</div>
+      <div class="chip chip-dim">10 BRIDGES</div>
       <div class="chip chip-dim">2 TUNNELS</div>
-      <div class="chip chip-dim">7 BIOMES</div>
-      <div class="chip chip-gold">BOTH ENDS PLANNED FOR EXTENSION</div>
+      <div class="chip chip-dim">3 CULVERTS</div>
+      <div class="chip chip-gold">SEED: 118695183337216084</div>
     </div>
   </div>
 </div>
 
-<!-- STATS STRIP -->
 <div class="stats">
   <div class="stats-inner">
-    <div class="stat"><span class="sv"><em>3,066</em></span><span class="sk">BLOCKS — START TO VALLEY STATION</span></div>
-    <div class="stat"><span class="sv">3,405+</span><span class="sk">BLOCKS INCL. PLANNED VALLEY EXTENSION</span></div>
-    <div class="stat"><span class="sv">1,892</span><span class="sk">BLOCKS — START TO MALACCA STATION</span></div>
-    <div class="stat"><span class="sv"><em>29</em></span><span class="sk">TOTAL SEGMENTS // 28 DIRECTIONAL TURNS</span></div>
+    <div class="stat"><span class="sv"><em>2,746</em></span><span class="sk">MAIN LINE BLOCKS — SPAWN TO VALLEY TERM.</span></div>
+    <div class="stat"><span class="sv">3,189</span><span class="sk">TOTAL BLOCKS INCL. OPERATIONAL SPURS</span></div>
+    <div class="stat"><span class="sv">1,403</span><span class="sk">BLOCKS — SPAWN TO MALACCA STATION</span></div>
+    <div class="stat"><span class="sv"><em>25</em></span><span class="sk">MAIN LINE SEGMENTS // 24 DIRECTIONAL TURNS</span></div>
   </div>
 </div>
 
-<!-- ROUTE MAP -->
-<section class="sec" id="map">
+<section class="sec" id="phases">
   <div class="inner reveal">
     <div class="sec-head">
       <div>
-        <div class="eye">CARTOGRAPHIC RECORD</div>
-        <h2>Route <em>Map.</em></h2>
+        <div class="eye">PROJECT CHRONOLOGY</div>
+        <h2>Line <em>Phases.</em></h2>
       </div>
-      <div class="sec-meta">MEASURED 2026<br>SKYXION: ALTAËR ERA</div>
-    </div>
-    <div class="map-card">
-      <div class="map-hdr">
-        <div class="map-title">TLSRL — FULL ROUTE SCHEMATIC · PLAN VIEW · NORTH UP</div>
-        <div class="map-legend">
-          <div class="leg"><div class="leg-line" style="background:var(--grn)"></div> BUILT ROUTE</div>
-          <div class="leg"><div class="leg-dash" style="border-color:var(--grn)"></div> PLANNED EXTENSION</div>
-          <div class="leg"><div class="leg-line" style="background:rgba(52,160,106,.2);width:10px;height:10px;border-radius:50%"></div> STATION</div>
-        </div>
-      </div>
-      <!-- SVG ROUTE MAP — ViewBox 0 0 1060 570, padding 30, scaleX=1000/2256, scaleZ=510/1121 -->
-      <svg class="route-svg" viewBox="0 0 1060 570" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arr-e" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-            <path d="M0,0 L8,3 L0,6 Z" fill="rgba(52,160,106,0.5)"/>
-          </marker>
-          <marker id="arr-w" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto-start-reverse">
-            <path d="M8,0 L0,3 L8,6 Z" fill="rgba(52,160,106,0.5)"/>
-          </marker>
-        </defs>
-
-        <!-- Grid lines -->
-        <line x1="0" y1="150" x2="1060" y2="150" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-        <line x1="0" y1="300" x2="1060" y2="300" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-        <line x1="0" y1="450" x2="1060" y2="450" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-        <line x1="200" y1="0" x2="200" y2="570" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-        <line x1="400" y1="0" x2="400" y2="570" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-        <line x1="600" y1="0" x2="600" y2="570" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-        <line x1="800" y1="0" x2="800" y2="570" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-        <line x1="1000" y1="0" x2="1000" y2="570" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-
-        <!-- Future extensions (dashed) -->
-        <!-- East extension from P1 (1030,30) -->
-        <line x1="1030" y1="30" x2="1060" y2="30" stroke="rgba(52,160,106,0.35)" stroke-width="2.5" stroke-dasharray="6 4"/>
-        <!-- West extension from P30 (30,527) -->
-        <line x1="30" y1="527" x2="0" y2="527" stroke="rgba(52,160,106,0.35)" stroke-width="2.5" stroke-dasharray="6 4"/>
-
-        <!-- Main route — P1 to P30 -->
-        <polyline
-          points="1030,30 948,30 948,43 758,43 758,74 552,74 552,84 542,84 542,89 530,89 530,144 520,144 520,231 483,231 483,233 432,233 432,239 428,239 428,272 428,480 392,480 392,506 328,506 328,540 270,540 270,533 248,533 248,527 180,527 30,527"
-          fill="none" stroke="var(--grn)" stroke-width="2.5" stroke-linejoin="round"/>
-
-        <!-- Turn dots (small) -->
-        <circle cx="948" cy="30" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="948" cy="43" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="758" cy="43" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="758" cy="74" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="552" cy="74" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="552" cy="84" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="542" cy="84" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="542" cy="89" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="530" cy="89" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="530" cy="144" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="520" cy="144" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="520" cy="231" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="483" cy="231" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="432" cy="233" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="428" cy="239" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="428" cy="480" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="392" cy="480" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="392" cy="506" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="328" cy="506" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="328" cy="540" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="270" cy="540" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="270" cy="533" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="248" cy="533" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-        <circle cx="248" cy="527" r="3" fill="rgba(52,160,106,0.5)" stroke="none"/>
-
-        <!-- START endpoint -->
-        <circle cx="1030" cy="30" r="7" fill="var(--bg)" stroke="var(--grn)" stroke-width="2"/>
-        <text x="1030" y="20" fill="rgba(52,160,106,0.7)" font-family="IBM Plex Mono" font-size="8" text-anchor="middle" letter-spacing="1">START</text>
-        <text x="1030" y="12" fill="rgba(52,160,106,0.45)" font-family="IBM Plex Mono" font-size="6.5" text-anchor="middle">586, 193</text>
-
-        <!-- MALACCA STATION at (428, 272) -->
-        <circle cx="428" cy="272" r="9" fill="var(--grn)" stroke="var(--bg)" stroke-width="2"/>
-        <rect x="356" y="280" width="120" height="32" fill="rgba(26,30,39,0.92)" rx="2"/>
-        <text x="416" y="294" fill="var(--grn)" font-family="IBM Plex Mono" font-size="8.5" font-weight="600" letter-spacing="0.5">MALACCA STN</text>
-        <text x="416" y="305" fill="rgba(232,234,240,0.4)" font-family="IBM Plex Mono" font-size="7">{-773, 726}</text>
-
-        <!-- VALLEY STATION at (180, 527) -->
-        <circle cx="180" cy="527" r="9" fill="var(--grn)" stroke="var(--bg)" stroke-width="2"/>
-        <rect x="80" y="535" width="138" height="30" fill="rgba(26,30,39,0.92)" rx="2"/>
-        <text x="149" y="548" fill="var(--grn)" font-family="IBM Plex Mono" font-size="8" font-weight="600" letter-spacing="0.5">THE LOL VALLEY</text>
-        <text x="149" y="559" fill="rgba(232,234,240,0.4)" font-family="IBM Plex Mono" font-size="7">{-1331, 1286}</text>
-
-        <!-- FUTURE END at (30, 527) -->
-        <circle cx="30" cy="527" r="5" fill="var(--bg)" stroke="rgba(52,160,106,0.4)" stroke-width="1.5" stroke-dasharray="3 2"/>
-        <text x="30" y="517" fill="rgba(52,160,106,0.4)" font-family="IBM Plex Mono" font-size="7" text-anchor="middle">FUTURE</text>
-
-        <!-- Segment labels for longest runs -->
-        <text x="770" y="67" fill="rgba(91,156,246,0.55)" font-family="IBM Plex Mono" font-size="7.5" text-anchor="middle">S5 · 466 blk</text>
-        <text x="770" y="59" fill="rgba(91,156,246,0.35)" font-family="IBM Plex Mono" font-size="6.5" text-anchor="middle">W →</text>
-        <text x="855" y="37" fill="rgba(91,156,246,0.55)" font-family="IBM Plex Mono" font-size="7.5" text-anchor="middle">S3 · 428 blk</text>
-        <text x="437" y="388" fill="rgba(91,156,246,0.55)" font-family="IBM Plex Mono" font-size="7.5">S19 · 456</text>
-        <text x="437" y="397" fill="rgba(91,156,246,0.35)" font-family="IBM Plex Mono" font-size="6.5">↓ S</text>
-
-        <!-- Compass rose -->
-        <g transform="translate(70, 60)">
-          <circle r="18" fill="rgba(26,30,39,0.8)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-          <line x1="0" y1="-12" x2="0" y2="12" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-          <line x1="-12" y1="0" x2="12" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-          <polygon points="0,-12 4,-4 0,0 -4,-4" fill="rgba(52,160,106,0.8)"/>
-          <polygon points="0,0 4,4 0,12 -4,4" fill="rgba(255,255,255,0.2)"/>
-          <text x="0" y="-18" fill="var(--grn)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" font-weight="600">N</text>
-          <text x="18" y="4" fill="rgba(255,255,255,0.25)" font-family="IBM Plex Mono" font-size="8">E</text>
-          <text x="-22" y="4" fill="rgba(255,255,255,0.25)" font-family="IBM Plex Mono" font-size="8">W</text>
-          <text x="0" y="28" fill="rgba(255,255,255,0.25)" font-family="IBM Plex Mono" font-size="8" text-anchor="middle">S</text>
-        </g>
-
-        <!-- Scale bar (approx) -->
-        <g transform="translate(850, 540)">
-          <line x1="0" y1="0" x2="88" y2="0" stroke="rgba(52,160,106,0.5)" stroke-width="1.5"/>
-          <line x1="0" y1="-4" x2="0" y2="4" stroke="rgba(52,160,106,0.5)" stroke-width="1.5"/>
-          <line x1="88" y1="-4" x2="88" y2="4" stroke="rgba(52,160,106,0.5)" stroke-width="1.5"/>
-          <text x="44" y="-8" fill="rgba(232,234,240,0.3)" font-family="IBM Plex Mono" font-size="7" text-anchor="middle">≈ 200 BLOCKS</text>
-        </g>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<!-- PHASE BREAKDOWN -->
-<section class="sec sec-alt" id="phases">
-  <div class="inner reveal">
-    <div class="sec-head">
-      <div>
-        <div class="eye">SECTION BREAKDOWN</div>
-        <h2>Three <em>Phases.</em></h2>
-      </div>
-      <div class="sec-meta">START → MALACCA → VALLEY<br>+ PLANNED EXTENSION</div>
+      <div class="sec-meta">STATUS LOGS<br>ALTAËR SYSTEM NETWORK</div>
     </div>
     <div class="phases">
       <div class="phase phase-1">
         <div class="phase-bg">01</div>
-        <div class="phase-id">PHASE 1 // SEGMENTS S1–S18</div>
-        <h3>Eastern Approach to Malacca</h3>
-        <p>18 segments navigating from the eastern starting point through complex terrain — long westward runs interrupted by concentrated terrain-zigzag zones suggesting rivers, ravines, and biome transitions.</p>
+        <div class="phase-id">PHASE 01 // PUBLIC LOGISTICS</div>
+        <h3>Active Main Line & Spurs</h3>
+        <p>The primary core segment linking Spawn Station westward through Malacca down to the Valley terminal boundary, alongside industrial branch lines.</p>
         <div class="phase-stat">
-          <div><span class="ps-val">1,892</span><span class="ps-key">BLOCKS</span></div>
-          <div><span class="ps-val">18</span><span class="ps-key">SEGMENTS</span></div>
-          <div><span class="ps-val">61.7%</span><span class="ps-key">OF ROUTE</span></div>
+          <div><span class="ps-val">3,189</span><span class="ps-key">OPERATIONAL BLOCKS</span></div>
+          <div><span class="ps-val">3</span><span class="ps-key">STATIONS OPEN</span></div>
         </div>
-        <div class="phase-note">Longest run: S5 = 466 blocks W (Z=290 corridor)<br>Major terrain zone: S6–S18 (concentrated turns)</div>
+        <div class="phase-note">Opened to the public. Fully verified logs tracking all standard junctions, tunnels, and deep-water overpasses.</div>
       </div>
       <div class="phase phase-2">
         <div class="phase-bg">02</div>
-        <div class="phase-id">PHASE 2 // SEGMENTS S19–S28</div>
-        <h3>Malacca to The LoL Valley</h3>
-        <p>10 segments from Malacca Station heading deep south then navigating westward through the valley approach — including two deliberate northward corrections (S25, S27) suggesting a ridge bypass.</p>
+        <div class="phase-id">PHASE 02 // PROPOSED EXPANSION</div>
+        <h3>Mansion Eastern Extension</h3>
+        <p>Strategic blueprints designed to push transit infrastructure directly east from Spawn Station to connect high-profile luxury estates.</p>
         <div class="phase-stat">
-          <div><span class="ps-val">1,174</span><span class="ps-key">BLOCKS</span></div>
-          <div><span class="ps-val">10</span><span class="ps-key">SEGMENTS</span></div>
-          <div><span class="ps-val">38.3%</span><span class="ps-key">OF ROUTE</span></div>
+          <div><span class="ps-val">645</span><span class="ps-key">PLANNED BLOCKS</span></div>
+          <div><span class="ps-val">1</span><span class="ps-key">RIVER CROSSING</span></div>
         </div>
-        <div class="phase-note">Longest run: S19 = 456 blocks S (open corridor)<br>Notable: S25 &amp; S27 go north — terrain bypass</div>
+        <div class="phase-note">Active mapping phase. Initial segments set coordinates from X: 125.5 to X: 741.5, pointing toward final Mansion coordinates.</div>
       </div>
       <div class="phase phase-3">
         <div class="phase-bg">03</div>
-        <div class="phase-id">PHASE 3 // SEGMENT S29 // PLANNED</div>
-        <h3>Valley Extension (Planned)</h3>
-        <p>Single continuation segment from The LoL Valley Station heading further west. Both this end and the eastern start point are also planned for extension, bringing total route length well beyond current measurement.</p>
+        <div class="phase-id">PHASE 03 // FUTURE BLUEPRINT</div>
+        <h3>Valley Beyond Extension</h3>
+        <p>Long-range structural projections intended to carry transit vectors outside the Phase 1 border corridor deep into unexplored territory.</p>
         <div class="phase-stat">
-          <div><span class="ps-val">339</span><span class="ps-key">BLOCKS</span></div>
-          <div><span class="ps-val">1</span><span class="ps-key">SEGMENT</span></div>
-          <div><span class="ps-val">TBD</span><span class="ps-key">FINAL LENGTH</span></div>
+          <div><span class="ps-val">TBD</span><span class="ps-key">PROJECTED CORRIDOR</span></div>
+          <div><span class="ps-val">—</span><span class="ps-key">STATIONS SURVEYED</span></div>
         </div>
-        <div class="phase-note">Eastern start also extends — final total TBD<br>Projected complete route: 4,000+ blocks</div>
+        <div class="phase-note">Coming soon. Field data logs will automatically scale this architecture as soon as territorial mapping clears.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SEGMENTS TABLE -->
-<section class="sec" id="segments">
+<section class="sec sec-alt" id="segments">
   <div class="inner reveal">
     <div class="sec-head">
       <div>
-        <div class="eye">COORDINATE LOG</div>
-        <h2>All <em>Segments.</em></h2>
+        <div class="eye">METRIC TRACKING MATRIX</div>
+        <h2>Segment <em>Analysis.</em></h2>
       </div>
-      <div class="sec-meta">29 TOTAL SEGMENTS<br>3,405+ BLOCKS (INCL. EXT.)</div>
+      <div class="sec-meta">25 MAIN LINE SEGMENTS<br>2,746 CORE ROUTE BLOCKS</div>
     </div>
     <table class="seg-table">
       <thead>
@@ -500,219 +348,265 @@ footer{border-top:1px solid var(--bdr);background:var(--bg2);padding:3rem 5%}
           <th>TO (X, Z)</th>
           <th>DIR</th>
           <th>BLOCKS</th>
-          <th>NOTE</th>
+          <th>CONSTRUCTION / STRUCTURAL NOTES</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="seg-group-hdr"><td colspan="6">PHASE 1 — Eastern Approach &nbsp;·&nbsp; S1–S18 &nbsp;·&nbsp; 1,892 blocks</td></tr>
-        <tr><td class="seg-num">S1</td><td class="coord">586, 193</td><td class="coord">401, 193</td><td class="dir-w">W</td><td class="dist-mid">185</td><td></td></tr>
-        <tr><td class="seg-num">S2</td><td class="coord">401, 193</td><td class="coord">401, 222</td><td class="dir-s">S</td><td class="dist-micro">29</td><td></td></tr>
-        <tr><td class="seg-num">S3</td><td class="coord">401, 222</td><td class="coord">-27, 222</td><td class="dir-w">W</td><td class="dist-big">428</td><td><span class="note-badge badge-long">LONG RUN</span></td></tr>
-        <tr><td class="seg-num">S4</td><td class="coord">-27, 222</td><td class="coord">-27, 290</td><td class="dir-s">S</td><td class="dist-micro">68</td><td></td></tr>
-        <tr><td class="seg-num">S5</td><td class="coord">-27, 290</td><td class="coord">-493, 290</td><td class="dir-w">W</td><td class="dist-big">466</td><td><span class="note-badge badge-long">LONGEST SEG</span></td></tr>
-        <tr><td class="seg-num">S6</td><td class="coord">-493, 290</td><td class="coord">-493, 312</td><td class="dir-s">S</td><td class="dist-micro">22</td><td></td></tr>
-        <tr><td class="seg-num">S7</td><td class="coord">-493, 312</td><td class="coord">-516, 312</td><td class="dir-w">W</td><td class="dist-micro">23</td><td></td></tr>
-        <tr><td class="seg-num">S8</td><td class="coord">-516, 312</td><td class="coord">-516, 323</td><td class="dir-s">S</td><td class="dist-micro">11</td><td><span class="note-badge badge-micro">MICRO</span></td></tr>
-        <tr><td class="seg-num">S9</td><td class="coord">-516, 323</td><td class="coord">-543, 323</td><td class="dir-w">W</td><td class="dist-micro">27</td><td></td></tr>
-        <tr><td class="seg-num">S10</td><td class="coord">-543, 323</td><td class="coord">-543, 443</td><td class="dir-s">S</td><td class="dist-mid">120</td><td></td></tr>
-        <tr><td class="seg-num">S11</td><td class="coord">-543, 443</td><td class="coord">-565, 443</td><td class="dir-w">W</td><td class="dist-micro">22</td><td></td></tr>
-        <tr><td class="seg-num">S12</td><td class="coord">-565, 443</td><td class="coord">-565, 634</td><td class="dir-s">S</td><td class="dist-mid">191</td><td></td></tr>
-        <tr><td class="seg-num">S13</td><td class="coord">-565, 634</td><td class="coord">-649, 634</td><td class="dir-w">W</td><td class="dist-micro">84</td><td></td></tr>
-        <tr><td class="seg-num">S14</td><td class="coord">-649, 634</td><td class="coord">-649, 639</td><td class="dir-s">S</td><td class="dist-micro">5</td><td><span class="note-badge badge-micro">MICRO CONNECTOR</span></td></tr>
-        <tr><td class="seg-num">S15</td><td class="coord">-649, 639</td><td class="coord">-764, 639</td><td class="dir-w">W</td><td class="dist-mid">115</td><td></td></tr>
-        <tr><td class="seg-num">S16</td><td class="coord">-764, 639</td><td class="coord">-764, 653</td><td class="dir-s">S</td><td class="dist-micro">14</td><td><span class="note-badge badge-micro">MICRO</span></td></tr>
-        <tr><td class="seg-num">S17</td><td class="coord">-764, 653</td><td class="coord">-773, 653</td><td class="dir-w">W</td><td class="dist-micro">9</td><td><span class="note-badge badge-micro">MICRO ADJUST</span></td></tr>
-        <tr><td class="seg-num">S18</td><td class="coord">-773, 653</td><td class="coord">-773, 726</td><td class="dir-s">S</td><td class="dist-micro">73</td><td><span class="note-badge badge-station">→ MALACCA STN</span></td></tr>
+        <tr class="seg-group-hdr"><td colspan="6">PHASE 01 — ACTIVE MAIN LINE (SPAWN STATION TO THE LOL VALLEY TERMINUS)</td></tr>
+        <tr><td class="seg-num">MS1</td><td class="coord">125.5, 222.5</td><td class="coord">-27.5, 222.5</td><td class="dir-w">W</td><td class="dist-mid">153</td><td>Origin Segment. Includes Spawn Station #01, Tunnel #01 (42 blk), & River Bridge (36 blk)</td></tr>
+        <tr><td class="seg-num">MS2</td><td class="coord">-27.5, 222.5</td><td class="coord">-27.5, 290.5</td><td class="dir-s">S</td><td class="dist-micro">68</td><td>Steep grade escalation. Ascends 10 blocks vertically from Y: 70 to Y: 80</td></tr>
+        <tr><td class="seg-num">MS3</td><td class="coord">-27.5, 290.5</td><td class="coord">-493.5, 290.5</td><td class="dir-w">W</td><td class="dist-big">466</td><td>Long run. Reaches Y: 82 summit, traverses 215-block Unnamed Strait Bridge, descends to Y: 70</td></tr>
+        <tr><td class="seg-num">MS4</td><td class="coord">-493.5, 290.5</td><td class="coord">-493.5, 312.5</td><td class="dir-s">S</td><td class="dist-micro">22</td><td>Maneuvering corridor corner tracking layout</td></tr>
+        <tr><td class="seg-num">MS5</td><td class="coord">-493.5, 312.5</td><td class="coord">-516.5, 312.5</td><td class="dir-w">W</td><td class="dist-micro">23</td><td>Maneuvering corridor lateral adjustment</td></tr>
+        <tr><td class="seg-num">MS6</td><td class="coord">-516.5, 312.5</td><td class="coord">-516.5, 323.5</td><td class="dir-s">S</td><td class="dist-micro">11</td><td>Pre-ocean alignment segment</td></tr>
+        <tr><td class="seg-num">MS7</td><td class="coord">-516.5, 323.5</td><td class="coord">-543.5, 323.5</td><td class="dir-w">W</td><td class="dist-micro">27</td><td>Ocean approach vector. Major Great Ocean Bridge begins at X: -530.5</td></tr>
+        <tr><td class="seg-num">MS8</td><td class="coord">-543.5, 323.5</td><td class="coord">-543.5, 443.5</td><td class="dir-s">S</td><td class="dist-mid">120</td><td>Traverses open deep ocean waters on elevated marine columns</td></tr>
+        <tr><td class="seg-num">MS9</td><td class="coord">-543.5, 443.5</td><td class="coord">-565.5, 443.5</td><td class="dir-w">W</td><td class="dist-micro">22</td><td>Ocean grid adjustment connector path</td></tr>
+        <tr><td class="seg-num">MS10</td><td class="coord">-565.5, 443.5</td><td class="coord">-565.5, 634.5</td><td class="dist-mid">191</td><td class="dir-s">S</td><td>Extended oversea span. Great Ocean Bridge structure terminates at Z: 598.5</td></tr>
+        <tr><td class="seg-num">MS11</td><td class="coord">-565.5, 634.5</td><td class="coord">-649.5, 634.5</td><td class="dir-w">W</td><td class="dist-micro">84</td><td>Mainland descent. Track steps down 4 blocks vertically from Y: 70 to Y: 66</td></tr>
+        <tr><td class="seg-num">MS12</td><td class="coord">-649.5, 634.5</td><td class="coord">-649.5, 639.5</td><td class="dir-s">S</td><td class="dist-micro">5</td><td>Micro adjustment segment shifting track alignment south</td></tr>
+        <tr><td class="seg-num">MS13</td><td class="coord">-649.5, 639.5</td><td class="coord">-764.5, 639.5</td><td class="dir-w">W</td><td class="dist-mid">115</td><td>Tangential run crossing coastal lowlands</td></tr>
+        <tr><td class="seg-num">MS14</td><td class="coord">-764.5, 639.5</td><td class="coord">-764.5, 653.5</td><td class="dir-s">S</td><td class="dist-micro">14</td><td>Inbound vector shifting alignment to Malacca hub entry</td></tr>
+        <tr><td class="seg-num">MS15</td><td class="coord">-764.5, 653.5</td><td class="coord">-773.5, 653.5</td><td class="dir-w">W</td><td class="dist-micro">9</td><td>Junction terminal. Features Malacca Port Industrial Spur Interchange at point end</td></tr>
+        <tr><td class="seg-num">MS16</td><td class="coord">-773.5, 653.5</td><td class="coord">-773.5, 1182.5</td><td class="dir-s">S</td><td class="dist-big">529</td><td>Longest tangent run. Features Malacca Stn, 2 Malacca River bridges, & 105 blk LoL River overpass</td></tr>
+        <tr><td class="seg-num">MS17</td><td class="coord">-773.5, 1182.5</td><td class="coord">-853.5, 1182.5</td><td class="dir-w">W</td><td class="dist-micro">80</td><td>Includes an additional 49-block secondary overpass crossing the LoL River channel</td></tr>
+        <tr><td class="seg-num">MS18</td><td class="coord">-853.5, 1182.5</td><td class="coord">-853.5, 1240.5</td><td class="dir-s">S</td><td class="dist-micro">58</td><td>Connecting vector moving along the LoL Hill flank</td></tr>
+        <tr><td class="seg-num">MS19</td><td class="coord">-853.5, 1240.5</td><td class="coord">-998.5, 1240.5</td><td class="dir-w">W</td><td class="dist-mid">145</td><td>Features integrated 9-block masonry culvert system framing the LoL Hill Fall</td></tr>
+        <tr><td class="seg-num">MS20</td><td class="coord">-998.5, 1240.5</td><td class="coord">-998.5, 1314.5</td><td class="dir-s">S</td><td class="dist-micro">74</td><td>Spans a final 60-block massive steel overpass directly over the LoL River basin</td></tr>
+        <tr><td class="seg-num">MS21</td><td class="coord">-998.5, 1314.5</td><td class="coord">-1128.5, 1314.5</td><td class="dir-w">W</td><td class="dist-mid">130</td><td>Features a 2-block ground culvert engineered for pedestrian, horse, and livestock crossings</td></tr>
+        <tr><td class="seg-num">MS22</td><td class="coord">-1128.5, 1314.5</td><td class="coord">-1128.5, 1299.5</td><td class="dir-n">N</td><td class="dist-micro">15</td><td>Northward Correction Vector. Shifting corridor to bypass valley topographical constraints</td></tr>
+        <tr><td class="seg-num">MS23</td><td class="coord">-1128.5, 1299.5</td><td class="coord">-1179.5, 1299.5</td><td class="dir-w">W</td><td class="dist-micro">51</td><td>Intermediate approach stretch entering the foothills</td></tr>
+        <tr><td class="seg-num">MS24</td><td class="coord">-1179.5, 1299.5</td><td class="coord">-1179.5, 1286.5</td><td class="dir-n">N</td><td class="dist-micro">13</td><td>Final Northward Correction Vector. Aligns track directly with terminal tunnel mouth</td></tr>
+        <tr><td class="seg-num">MS25</td><td class="coord">-1179.5, 1286.5</td><td class="coord">-1460.5, 1286.5</td><td class="dir-w">W</td><td class="dist-mid">281</td><td>Terminal Segment. Features 201 blk subterranean tunnel and deep Valley Station hub</td></tr>
 
-        <tr class="seg-group-hdr"><td colspan="6">PHASE 2 — Malacca to The LoL Valley &nbsp;·&nbsp; S19–S28 &nbsp;·&nbsp; 1,174 blocks</td></tr>
-        <tr><td class="seg-num">S19</td><td class="coord">-773, 726</td><td class="coord">-773, 1182</td><td class="dir-s">S</td><td class="dist-big">456</td><td><span class="note-badge badge-long">2ND LONGEST</span></td></tr>
-        <tr><td class="seg-num">S20</td><td class="coord">-773, 1182</td><td class="coord">-853, 1182</td><td class="dir-w">W</td><td class="dist-micro">80</td><td></td></tr>
-        <tr><td class="seg-num">S21</td><td class="coord">-853, 1182</td><td class="coord">-853, 1240</td><td class="dir-s">S</td><td class="dist-micro">58</td><td></td></tr>
-        <tr><td class="seg-num">S22</td><td class="coord">-853, 1240</td><td class="coord">-998, 1240</td><td class="dir-w">W</td><td class="dist-mid">145</td><td></td></tr>
-        <tr><td class="seg-num">S23</td><td class="coord">-998, 1240</td><td class="coord">-998, 1314</td><td class="dir-s">S</td><td class="dist-micro">74</td><td></td></tr>
-        <tr><td class="seg-num">S24</td><td class="coord">-998, 1314</td><td class="coord">-1128, 1314</td><td class="dir-w">W</td><td class="dist-mid">130</td><td></td></tr>
-        <tr><td class="seg-num">S25</td><td class="coord">-1128, 1314</td><td class="coord">-1128, 1299</td><td class="dir-n" style="color:#f6a035">N</td><td class="dist-micro">15</td><td><span class="note-badge badge-north">NORTHWARD</span></td></tr>
-        <tr><td class="seg-num">S26</td><td class="coord">-1128, 1299</td><td class="coord">-1179, 1299</td><td class="dir-w">W</td><td class="dist-micro">51</td><td></td></tr>
-        <tr><td class="seg-num">S27</td><td class="coord">-1179, 1299</td><td class="coord">-1179, 1286</td><td class="dir-n" style="color:#f6a035">N</td><td class="dist-micro">13</td><td><span class="note-badge badge-north">NORTHWARD</span></td></tr>
-        <tr><td class="seg-num">S28</td><td class="coord">-1179, 1286</td><td class="coord">-1331, 1286</td><td class="dir-w">W</td><td class="dist-mid">152</td><td><span class="note-badge badge-station">→ VALLEY STN</span></td></tr>
+        <tr class="seg-group-hdr"><td colspan="6">OPERATIONAL SPUR LINES (PHASE 01 LOGISTICS BRANCHES)</td></tr>
+        <tr><td class="seg-num">PS1</td><td class="coord">34.5, 222.5</td><td class="coord">34.5, 79.5</td><td class="dir-n">N</td><td class="dist-mid">143</td><td>Paiz Corp Private Rail. Diverges from MS1 interchange; spans 28 blk strait overpass to Y: 63</td></tr>
+        <tr><td class="seg-num">MPS1</td><td class="coord">-773.5, 653.5</td><td class="coord">-773.5, 651.5</td><td class="dir-n">N</td><td class="dist-micro">2</td><td>Malacca Port Spur Part 1. Diverges at core route interchange turning north</td></tr>
+        <tr><td class="seg-num">MPS2</td><td class="coord">-773.5, 651.5</td><td class="coord">-784.5, 651.5</td><td class="dir-w">W</td><td class="dist-micro">11</td><td>Malacca Port Spur Part 2. Shifts vector due west</td></tr>
+        <tr><td class="seg-num">MPS3</td><td class="coord">-784.5, 651.5</td><td class="coord">-784.5, 617.5</td><td class="dir-n">N</td><td class="dist-micro">34</td><td>Malacca Port Spur Part 3. Tangent running north to clear bay shores</td></tr>
+        <tr><td class="seg-num">MPS4</td><td class="coord">-784.5, 617.5</td><td class="coord">-1037.5, 617.5</td><td class="dir-w">W</td><td class="dist-mid">253</td><td>Malacca Port Spur Part 4. Includes 5 blk bridge, 2 blk culvert, terminates at future port site</td></tr>
 
-        <tr class="seg-group-hdr"><td colspan="6">PHASE 3 — Planned Extension &nbsp;·&nbsp; S29 &nbsp;·&nbsp; 339 blocks (built, endpoint TBD)</td></tr>
-        <tr><td class="seg-num">S29</td><td class="coord">-1331, 1286</td><td class="coord">-1670, 1286</td><td class="dir-w">W</td><td class="dist-mid">339</td><td><span class="note-badge badge-future">FUTURE EXT.</span></td></tr>
+        <tr class="seg-group-hdr"><td colspan="6">PHASE 02 — PROPOSED FUTURE PLANS (EASTERN CORRIDOR EXTENSION)</td></tr>
+        <tr><td class="seg-num">FS1</td><td class="coord">125.5, 222.5</td><td class="coord">401.5, 222.5</td><td class="dir-e">E</td><td class="dist-mid">276</td><td>Blueprinted line extending East from Spawn Stn. Includes planned 54 blk River Bridge</td></tr>
+        <tr><td class="seg-num">FS2</td><td class="coord">401.5, 222.5</td><td class="coord">401.5, 193.5</td><td class="dir-n">N</td><td class="dist-micro">29</td><td>Blueprinted northward offset corridor to bypass territorial borders</td></tr>
+        <tr><td class="seg-num">FS3</td><td class="coord">401.5, 193.5</td><td class="coord">741.5, 193.5</td><td class="dir-e">E</td><td class="dist-mid">340</td><td>Current survey limit line. Final corridor designed to point directly to Mansion at (-1817.5, -3499.5)</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<!-- STATIONS -->
-<section class="sec sec-alt" id="stations">
+<section class="sec" id="stations">
   <div class="inner reveal">
     <div class="sec-head">
       <div>
-        <div class="eye">STATION REGISTRY</div>
-        <h2>Known <em>Stations.</em></h2>
+        <div class="eye">MASS TRANSIT HUBS</div>
+        <h2>Station <em>Profiles.</em></h2>
       </div>
-      <div class="sec-meta">2 CONFIRMED STATIONS<br>ENDPOINTS TBD PENDING EXTENSION</div>
+      <div class="sec-meta">3 REGIONAL TERMINALS<br>OPERATIONAL SECURITY CLEARANCE</div>
     </div>
     <div class="stations">
-
+      <div class="stn">
+        <div class="stn-bg">SPN</div>
+        <div class="stn-id">STATION-01 // RAILWAY ORIGIN POINT</div>
+        <h3>Spawn <em>Station</em> #01</h3>
+        <div class="stn-coord">125.5 · 222.5</div>
+        <p>
+          The anchor terminal facility of the TLSRL grid, constructed in immediate proximity to the initial world spawn coordinates. Acts as the primary junction nexus linking the active Phase 1 western mainline track with the future planned Phase 2 eastern network expanses.
+        </p>
+        <div class="stn-facts">
+          <div class="stn-fact"><span class="sf-k">COORDINATES</span><span class="sf-v">X 125.5 · Y 70 · Z 222.5</span></div>
+          <div class="stn-fact"><span class="sf-k">LINE LOCATION</span><span class="sf-v">Kilometer 0.0</span></div>
+          <div class="stn-fact"><span class="sf-k">PHASE TRANSIT</span><td class="sf-v">Core Junction 01</td></div>
+          <div class="stn-fact"><span class="sf-k">SPUR SYSTEM</span><span class="sf-v">Paiz Branch Proximate</span></div>
+        </div>
+      </div>
       <div class="stn">
         <div class="stn-bg">MCK</div>
-        <div class="stn-id">STATION-01 // PHASE 1 TERMINUS</div>
-        <h3><em>Malacca</em> Station</h3>
-        <div class="stn-coord">-773, 726</div>
+        <div class="stn-id">STATION-02 // MID-ROUTE DISTRIBUTION</div>
+        <h3>Malacca <em>Station</em></h3>
+        <div class="stn-coord">-773.5 · 726.5</div>
         <p>
-          Malacca Station is the first confirmed station on the TLSRL route, marking the end of Phase 1's
-          eastern approach. Sits at the head of the long Phase 2 southward corridor — the route continues
-          456 blocks due south from this point before turning westward toward the valley.
+          A vital commercial hub situated in the lowlands of the Malacca district. The terminal structure manages significant public transit traffic and serves as the strategic gatekeeper to the Malacca Port industrial track, which branches off at a massive grade interchange just north of the hub.
         </p>
         <div class="stn-facts">
-          <div class="stn-fact"><span class="sf-k">COORDINATES</span><span class="sf-v">X -773 · Z 726</span></div>
-          <div class="stn-fact"><span class="sf-k">DISTANCE FROM START</span><span class="sf-v">1,892 blocks</span></div>
-          <div class="stn-fact"><span class="sf-k">PHASE</span><span class="sf-v">End of Phase 1</span></div>
-          <div class="stn-fact"><span class="sf-k">DISTANCE TO VALLEY</span><span class="sf-v">1,174 blocks</span></div>
+          <div class="stn-fact"><span class="sf-k">COORDINATES</span><span class="sf-v">X -773.5 · Y 67 · Z 726.5</span></div>
+          <div class="stn-fact"><span class="sf-k">LINE LOCATION</span><span class="sf-v">1,403 blocks from Spawn</span></div>
+          <div class="stn-fact"><span class="sf-k">PHASE TRANSIT</span><td class="sf-v">Phase 1 Lowlands Hub</td></div>
+          <div class="stn-fact"><span class="sf-k">SPUR SYSTEM</span><span class="sf-v">Malacca Port Line Nexus</span></div>
         </div>
       </div>
-
       <div class="stn">
         <div class="stn-bg">VLY</div>
-        <div class="stn-id">STATION-02 // CURRENT WESTERN TERMINUS</div>
-        <h3>The LoL <em>Valley</em> Station</h3>
-        <div class="stn-coord">-1331, 1286</div>
+        <div class="stn-id">STATION-03 // PHASE 1 TERM HUB</div>
+        <h3>The LoL Valley <em>Station</em></h3>
+        <div class="stn-coord">-1343.5 · 1285.5</div>
         <p>
-          Current western terminus of the measured route. The approach features two deliberate northward
-          corrections (S25 &amp; S27) suggesting the alignment threads between a ridge and the valley floor
-          before reaching the station platform. Extension planned westward from this point.
+          The westernmost outpost terminal for Phase 1. Subterranean facility integrated directly inside a 201-block mountain tunnel. Features reinforced masonry arches engineered to serve as a deep freight loading terminal and the future jump-off launch point for Phase 3 lines.
         </p>
         <div class="stn-facts">
-          <div class="stn-fact"><span class="sf-k">COORDINATES</span><span class="sf-v">X -1331 · Z 1286</span></div>
-          <div class="stn-fact"><span class="sf-k">DISTANCE FROM START</span><span class="sf-v">3,066 blocks</span></div>
-          <div class="stn-fact"><span class="sf-k">PHASE</span><span class="sf-v">End of Phase 2</span></div>
-          <div class="stn-fact"><span class="sf-k">EXTENSION</span><span class="sf-v">+339 blocks planned</span></div>
+          <div class="stn-fact"><span class="sf-k">COORDINATES</span><span class="sf-v">X -1343.5 · Y 68 · Z 1285.5</span></div>
+          <div class="stn-fact"><span class="sf-k">LINE LOCATION</span><span class="sf-v">2,629 blocks from Spawn</span></div>
+          <div class="stn-fact"><span class="sf-k">PHASE TRANSIT</span><td class="sf-v">Phase 1 Terminus Border</td></div>
+          <div class="stn-fact"><span class="sf-k">SPUR SYSTEM</span><span class="sf-v">Isolated Terminal</span></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- INFRASTRUCTURE -->
-<section class="sec" id="infrastructure">
+<section class="sec sec-alt" id="infrastructure">
   <div class="inner reveal">
     <div class="sec-head">
       <div>
-        <div class="eye">BUILD RECORD // AS OF SURVEY DATE</div>
-        <h2>Infrastructure <em>Data.</em></h2>
+        <div class="eye">CIVIL ENGINEERING LOGISTICS</div>
+        <h2>Built <em>Infrastructure.</em></h2>
       </div>
-      <div class="sec-meta">CURRENT COUNTS<br>WILL GROW WITH EXTENSIONS</div>
+      <div class="sec-meta">LOGS RECOGNIZED IN ACTIVE PROPERTY CORRIDOR</div>
     </div>
     <div class="infra-grid">
       <div class="infra">
-        <span class="infra-icon">🏗️</span>
-        <h4>Bridges</h4>
-        <p>The route crosses 11 bridges — the highest single infrastructure count on this line. Bridges span rivers, ravines, and low terrain between biomes across both Phase 1 and Phase 2.</p>
-        <span class="infra-count"><em>11</em></span>
-        <span class="infra-label">BRIDGES CONFIRMED</span>
+        <span class="infra-icon">🌉</span>
+        <h4>Bridges & Overpasses</h4>
+        <p>Elevated spans traversing rivers, oceanic straits, and wide deep sea water basins.</p>
+        <span class="infra-count">10</span>
+        <span class="infra-label">COMPLETED STRUCTURES</span>
       </div>
       <div class="infra">
-        <span class="infra-icon">🪨</span>
-        <h4>Tunnels</h4>
-        <p>Two tunnel sections bore through elevated terrain. The concentration of micro-segments in S6–S18 (Phase 1 terrain zone) suggests at least one tunnel is located there.</p>
-        <span class="infra-count"><em>2</em></span>
-        <span class="infra-label">TUNNELS CONFIRMED</span>
+        <span class="infra-icon">🚇</span>
+        <h4>Subterranean Tunnels</h4>
+        <p>Heavy clearance tunnels carved directly through mountain facades and baseline rock walls.</p>
+        <span class="infra-count">02</span>
+        <span class="infra-label">COMPLETED SECTORS</span>
       </div>
       <div class="infra">
-        <span class="infra-icon">🌿</span>
-        <h4>Biomes</h4>
-        <p>Seven distinct biomes crossed along the 3,066-block measured route. Biome transitions are a primary driver of the route's directionality changes — particularly through Phase 1.</p>
-        <span class="infra-count"><em>7</em></span>
-        <span class="infra-label">BIOMES TRAVERSED</span>
+        <span class="infra-icon">🔲</span>
+        <h4>Masonry Culverts</h4>
+        <p>Under-track drainage vaults and pedestrian thoroughfares managing surrounding geographic safety.</p>
+        <span class="infra-count">03</span>
+        <span class="infra-label">INSTALLED UNITS</span>
+      </div>
+      <div class="infra">
+        <span class="infra-icon">🔄</span>
+        <h4>Directional Turns</h4>
+        <p>High-speed structural curves banking standard track vectors across changing terrain contours.</p>
+        <span class="infra-count">24</span>
+        <span class="infra-label">MAIN CORNERS RECORDED</span>
       </div>
     </div>
 
-    <div class="insights reveal">
+    <div class="insights">
       <div class="insight">
         <div class="ins-num">01</div>
         <div class="ins-body">
-          <h5>The Complex Terrain Zone</h5>
-          <p>Segments S6–S18 (13 segments, 535 blocks) contain <strong>7 of the 13 turns</strong> in just 17% of the route distance. This tight cluster at ~X -493 to -773 is where the majority of bridges and tunnels likely concentrate — the route threading through the most technically challenging terrain on the line.</p>
+          <h5>The Overland Marine Overpasses</h5>
+          <p>Over <strong>15% of the Phase 1 route</strong> relies completely on high-elevation spans, notably the 215-block Unnamed Strait Bridge and the sprawling, multi-segmented Great Ocean Bridge system spanning 353 blocks between coordinates Z: 323.5 and Z: 598.5.</p>
         </div>
       </div>
       <div class="insight">
         <div class="ins-num">02</div>
         <div class="ins-body">
-          <h5>The Northward Corrections at Valley Approach</h5>
-          <p>S25 and S27 are the only two <strong>northward segments</strong> on the route. Located just before The LoL Valley Station, the track dips to Z=1314 then corrects back to Z=1286. This manoeuvre suggests a terrain obstacle — likely a ridge or cliff — requiring the alignment to find a lower crossing point before ascending to station level.</p>
-        </div>
-      </div>
-      <div class="insight">
-        <div class="ins-num">03</div>
-        <div class="ins-body">
-          <h5>Long Corridor Efficiency</h5>
-          <p>The two longest segments (S5 at <strong>466 blocks W</strong> and S19 at <strong>456 blocks S</strong>) account for 30% of the total route distance in just 2 of 29 segments. These long, uninterrupted runs indicate that the terrain in these corridors was flat enough — or already cleared — to allow straight-line construction.</p>
-        </div>
-      </div>
-      <div class="insight">
-        <div class="ins-num">04</div>
-        <div class="ins-body">
-          <h5>Route vs. Straight Line</h5>
-          <p>Direct distance from start to Valley Station is <strong>≈ 2,207 blocks</strong>. The actual route is <strong>3,066 blocks</strong> — 38.9% longer than the straight-line path. For a railway navigating 7 biomes, 2 tunnels, and 11 bridges, this is a respectable efficiency ratio.</p>
+          <h5>Foothill Northward Corrections</h5>
+          <p>To safely clear extreme topographic cliffs framing the entry vectors to The LoL Valley, track segments <strong>MS22 and MS24</strong> introduce deliberate northward micro-corrections (15 and 13 blocks respectively) to cleanly meet the entry mouth of the 201-block baseline terminal tunnel.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<section class="sec" id="landmarks">
+  <div class="inner reveal">
+    <div class="sec-head">
+      <div>
+        <div class="eye">REGIONAL OBSERVATION COORDINATES</div>
+        <h2>Surrounding <em>Landmarks.</em></h2>
+      </div>
+      <div class="sec-meta">SURVEY MAP DATA LOGS</div>
+    </div>
+    <div class="infra-grid">
+      <div class="infra" style="padding:1.4rem;">
+        <span class="infra-label">STRONGHOLD</span>
+        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-1455.5 · 1156.5</h4>
+      </div>
+      <div class="infra" style="padding:1.4rem;">
+        <span class="infra-label">THE LOL HILL</span>
+        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-967.5 · 1164.5</h4>
+      </div>
+      <div class="infra" style="padding:1.4rem;">
+        <span class="infra-label">CONVENTION CENTRE (TLCC)</span>
+        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-1021.5 · 1018.5</h4>
+      </div>
+      <div class="infra" style="padding:1.4rem;">
+        <span class="infra-label">MALACCA OLD TOWN</span>
+        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-916.5 · 588.5</h4>
+      </div>
+      <div class="infra" style="padding:1.4rem;">
+        <span class="infra-label">TRADING HALL</span>
+        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">51.5 · 17.5</h4>
+      </div>
+      <div class="infra" style="padding:1.4rem;">
+        <span class="infra-label">THE LOL FALL</span>
+        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-916.5 · 1188.5</h4>
+      </div>
+      <div class="infra" style="padding:1.4rem;">
+        <span class="infra-label">CHERRY BLOSSOM PARK</span>
+        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-699.5 · 1176.5</h4>
+      </div>
+      <div class="infra" style="padding:1.4rem;">
+        <span class="infra-label">BLACK GATE BRIDGE</span>
+        <h4 style="margin-top:4px; font-family:'IBM Plex Mono'; font-size:0.85rem; color:var(--grn);">-1220.5 · 1084.5</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="ft-inner">
     <div>
-      <div class="ft-name"><em>TLSRL</em> — Route Documentation</div>
-      <div class="ft-sub">THE LOL–SPAWN RAILWAY LINK · TL RAILWAYS</div>
-      <p class="ft-desc">Official route survey and documentation for the TLSRL flagship line. Operated by TL Railways, built by Paiz™ Construction, a subsidiary of Paiz® Corp.</p>
+      <div class="ft-name">TLSRL // <em>TL Railways</em></div>
+      <div class="ft-sub">ROUTE DOCUMENTATION DECK</div>
+      <p class="ft-desc">Architectural surveying ledger and infrastructure verification metrics documenting flagship track corridors across the Skyxion surface.</p>
     </div>
     <div class="ft-col">
-      <h5>ROUTE DATA</h5>
-      <a href="#map">Route Map</a>
-      <a href="#segments">Segment Log</a>
-      <a href="#stations">Station Profiles</a>
-      <a href="#infrastructure">Infrastructure</a>
-    </div>
-    <div class="ft-col">
-      <h5>THE LOL NETWORK</h5>
+      <h5>DIVISIONS</h5>
       <a href="/tlrailways/">TL Railways</a>
       <a href="/paizcorp/">Paiz® Corp</a>
       <a href="/gov/">Government</a>
       <a href="/main/">The LoL</a>
     </div>
+    <div class="ft-col">
+      <h5>METRICS STATUS</h5>
+      <p style="font-size:0.8rem; font-weight:300; color:var(--faint); line-height:1.6;">Spawn Target: 125.5, 66, 177.5<br>Core Main Line: 2,746 BLK<br>Branch Spur Tracks: 443 BLK</p>
+    </div>
   </div>
   <div class="ft-bot">
     <p>© 2026 TL RAILWAYS — A SUBSIDIARY OF PAIZ® CORP — THE LEGEND OF LEGIONA</p>
-    <p>TLSRL · MEASURED 3,066 BLK · 2 STN · 11 BRIDGES · 2 TUNNELS · 7 BIOMES</p>
+    <p>TLSRL LOGS · VERIFIED 3,189 BLK TRACKAGE · 3 STN · 10 BRIDGES · 2 TUNNELS · 3 CULVERTS</p>
   </div>
 </footer>
 
 <script>
-  // Reveal
+  // Reveal animation script
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);} });
-  }, { threshold: 0.07 });
+  }, { threshold: 0.05 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // Active nav
-  const secs = ['map','segments','stations','infrastructure'];
-  const links = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let cur = '';
-    secs.forEach(id => { const el=document.getElementById(id); if(el&&window.scrollY>=el.offsetTop-100) cur=id; });
-    links.forEach(a => a.classList.toggle('on', a.getAttribute('href')==='#'+cur));
-  }, {passive:true});
-
-  // Hamburger
+  // Hamburger drawer navigation toggle
   const ham = document.getElementById('ham');
   const drw = document.getElementById('drawer');
-  ham.addEventListener('click', () => { ham.classList.toggle('open'); drw.classList.toggle('open'); });
-  function closeNav(){ ham.classList.remove('open'); drw.classList.remove('open'); }
-  document.addEventListener('click', e => { if(!ham.contains(e.target)&&!drw.contains(e.target)) closeNav(); });
+  if(ham && drw) {
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      drw.classList.toggle('open');
+    });
+  }
+  function closeNav() {
+    if(ham && drw) {
+      ham.classList.remove('open');
+      drw.classList.remove('open');
+    }
+  }
 </script>
+
 </body>
 </html>
