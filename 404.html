@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Page Not Found · TL Railways</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/tlrailways/assets/images/TLRailwaysLogo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tlrailways/assets/css/style.css">
+<style>
+  body{min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--txt);font-family:'Outfit',sans-serif;}
+  .nf-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 5%;border-bottom:1px solid var(--border);}
+  .nf-brand{color:var(--txt);text-decoration:none;font-family:'Syne',sans-serif;font-weight:800;letter-spacing:0.02em;}
+  .nf-back{color:var(--tlsrl);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.8rem;}
+  .nf-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 5%;}
+  .nf-code{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,10vw,6rem);font-weight:800;color:var(--tlsrl);line-height:1;}
+  .nf-title{font-size:1.3rem;font-weight:600;margin:0.75rem 0;}
+  .nf-desc{max-width:460px;color:var(--txt-muted);line-height:1.6;margin-bottom:2rem;}
+  .nf-btn{display:inline-block;padding:0.8rem 1.8rem;background:var(--tlsrl);color:#04140c;text-decoration:none;border-radius:var(--radius-m,8px);font-weight:600;transition:transform 0.2s ease;}
+  .nf-btn:hover{transform:translateY(-2px);}
+</style>
+</head>
+<body>
+  <nav class="nf-nav">
+    <a href="/tlrailways/" class="nf-brand">TL Railways</a>
+    <a href="/tlrailways/" class="nf-back">← TL RAILWAYS HOME</a>
+  </nav>
+  <main class="nf-main">
+    <div class="nf-code">404</div>
+    <h1 class="nf-title">Route not found</h1>
+    <p class="nf-desc">This station doesn't exist on our network. The page may have been moved or is under construction.</p>
+    <a href="/tlrailways/" class="nf-btn">← Back to TL Railways</a>
+  </main>
+<script type="module" src="/gov/assets/js/stats.js"></script>
+</body>
+</html>
